@@ -1,7 +1,7 @@
 ---
 layout: post
 category : CodeExp
-tagline: "tagline"
+tagline: ""
 tags : [C]
 ---
 {% include JB/setup %}
@@ -12,7 +12,7 @@ tags : [C]
 
 首先，分析需求，提出总体设计，设计主菜单
 
-```C
+{% highlight C %}
     printf( "-菜单:\t"
             "1.查找\t"
             "2.追加\t"
@@ -23,7 +23,7 @@ tags : [C]
             "7.保存\t"
             "0.退出\n"
             "输入序号:");
-```
+{% endhighlight %}
 
 两个字符串可以自动衔接在一起，所以一行太长就这么办吧，个人觉得比网上、书上广为传播的一堆printf要好的多。下面分析这些功能之间的联系，如下面的图所示（如果你学了软件工程，可以简单地画个用例图以明确系统功能及联系，这里图省事画个简单的示意图）：
 
@@ -230,7 +230,7 @@ case '2': // 追加
 
 删除为敏感动作，需要先提醒用户确认，为了方便调用确认动作，添加了确认函数
 
-```C
+{% highlight C %}
 int confirm(const char *words) {
     char choice;
     puts(words);
@@ -266,7 +266,7 @@ case '3': // 删除
         }
     }
     break;
-```
+{% endhighlight %}
 
 修改
 ----
