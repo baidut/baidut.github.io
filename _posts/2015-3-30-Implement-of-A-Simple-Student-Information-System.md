@@ -1,7 +1,7 @@
 ---
 layout: post
 category : CodeExp
-tagline: "C语言大作业-学生成绩管理系统"
+tagline: "tagline"
 tags : [C]
 ---
 {% include JB/setup %}
