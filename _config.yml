@@ -1,3 +1,7 @@
+# append by ZhenqiangYing
+img_url: /assets/images
+file_url: /assets/files
+
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year/:month/:day/:title 

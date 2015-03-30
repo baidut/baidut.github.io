@@ -2,6 +2,7 @@
 layout: post
 category : CodeExp
 tagline: ""
+title: C语言大作业-学生成绩管理系统
 tags : [C]
 ---
 {% include JB/setup %}
@@ -27,7 +28,7 @@ tags : [C]
 
 两个字符串可以自动衔接在一起，所以一行太长就这么办吧，个人觉得比网上、书上广为传播的一堆printf要好的多。下面分析这些功能之间的联系，如下面的图所示（如果你学了软件工程，可以简单地画个用例图以明确系统功能及联系，这里图省事画个简单的示意图）：
 
-![images](images/用例图.png)
+![](images/C语言学生成绩管理系统-用例图.png)
 
 明确了需求，下面的问题就是如何实现了，实现的中心是数据结构设计，每个记录项是一个结构体，包含学生姓名、学生各科成绩、以及总分。
 
@@ -79,7 +80,7 @@ tags : [C]
 
 没了，其他都是局部变量，接着打个主菜单的框架：
 
-{% endhighlight %}
+{% highlight c %}
 // 主菜单
 for (;;) {
 char choice;
@@ -340,14 +341,7 @@ https://github.com/baidut/Programming-in-C/blob/master/stud_info_manager/main.c
 
 当大四的我重写大一时的C语言大作业 原文链接
 
-GitHub博客：
-
- 1. [记对教科书的质疑](http://baidut.github.io/CodeExp/2015/03/28/Modify-My-First-C-Project-After-3-years/)
- 1. [C语言大作业-学生成绩管理系统](http://baidut.github.io/CodeExp/2015/03/30/Implement-of-A-Simple-Student-Information-System/)
-
- CSDN博客：
-
- 1. [记对教科书的质疑]()
- 1. [C语言大作业-学生成绩管理系统]()
+ 1. 记对教科书的质疑 [GitHub博客](http://baidut.github.io/CodeExp/2015/03/28/Modify-My-First-C-Project-After-3-years/) [CSDN博客]()
+ 1. C语言大作业-学生成绩管理系统 [GitHub博客](http://baidut.github.io/CodeExp/2015/03/30/Implement-of-A-Simple-Student-Information-System/) [CSDN博客]()
 
 ----------------------------------------
