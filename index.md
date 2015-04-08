@@ -9,7 +9,7 @@ tagline: Zhenqiang.YING's personal blog
 
 ﻿Welcome to my homepage! I am {{ site.author.name }}. My field of specialization is **Computer Vision** and I currently work at a startup. 
 
- * CV: [Consult my curriculum vitae]( {{ BASE_PATH }}/categories.html )
+ * CV: [Consult my curriculum vitae]( {{ BASE_PATH }}/CV.html )
  * Contact: {{ site.author.email }}
  * GitHub: [baidut](https://github.com/baidut/)
 
