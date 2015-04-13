@@ -1,0 +1,46 @@
+---
+layout: post
+category : Howto
+tagline: ""
+tags : [howto, jekyll, bootstrap, github, tutorial]
+---
+{% include JB/setup %}
+
+考虑到安全性，github.com已迁移至github.io，【关于这些字母含义的一些吐槽】学过网络的童鞋都知道hub，github就感觉是一个集线器将参与git项目的小伙伴连接起来，com不仅仅是最常见的域名，更让我联想到communication，而io又是input、output之意，这些词对程序猿们非常亲切。
+
+你只需要：
+
+ 1. 创建一个名称为`你的用户名.github.io`的项目
+ 1. fork一个别人搭建好的github.io博客 如[jekyll bootstrap](https://github.com/plusjade/jekyll-bootstrap/)
+ 1. 修改_config.yml
+
+搭建本地环境（ubuntu为例）
+
+ 1. sudo apt-get install ruby ruby-dev   安装ruby（带有gem）和ruby-dev
+ 1. sudo gem sources -r https://rubygems.org/ 移除本来的被墙的源地址
+ 1. sudo gem sources -r http://rubygems.org/ 
+ 1. sudo gem sources -a https://ruby.taobao.org/ 改用淘宝提供的可用的源地址
+ 1. sudo gem install jekyll
+ 1. cd转到博客的根目录，jekyll serve即可
+
+ 移除命令用-r或者--remove注意后者两个横杠！之前少个横杠提示source emove not present in cache，-l命令列出时发现没有成功移除，调用man查看使用帮助才发现命令输错了。添加地址可能比较慢，要等待https://ruby.taobao.org/ added to sources
+
+
+ * 发表文章：在_post目录下创建文件，用markdown书写，注意命名格式以及文件开头的格式。或`rake post title="文章标题"` [For detail](http://jekyllbootstrap.com/usage/jekyll-quick-start.html#toc_7)
+ * 发表页面：`rake name="页面名.md"` [For detail](http://jekyllbootstrap.com/usage/jekyll-quick-start.html#toc_8)
+
+
+问题及解决：
+
+  /var/lib/gems/1.9.1/gems/execjs-2.5.2/lib/execjs/runtimes.rb:48:in `autodetect': Could not find a JavaScript runtime. See https://github.com/rails/execjs for a list of available runtimes. (ExecJS::RuntimeUnavailable)
+
+"Could not find a JavaScript runtime."需要javascript运行环境，可以通过安装nodejs解决
+
+  $ sudo gem install jekyll
+  ERROR:  While executing gem ... (Gem::DependencyError)
+      Unable to resolve dependencies: classifier-reborn requires fast-stemmer (~> 1.0); jekyll-watch requires listen (~> 2.7); jekyll-sass-converter requires sass (~> 3.2); coffee-script requires coffee-script-source (>= 0), execjs (>= 0); parslet requires blankslate (~> 2.0)
+  $ sudo gem install jekyll
+  ERROR:  While executing gem ... (Gem::DependencyError)
+      Unable to resolve dependencies: jekyll requires toml (~> 0.1.0), jekyll-paginate (~> 1.0), jekyll-gist (~> 1.0), jekyll-coffeescript (~> 1.0), jekyll-sass-converter (~> 1.0), jekyll-watch (~> 1.1), classifier-reborn (~> 2.0); pygments.rb requires yajl-ruby (~> 1.2.0), posix-spawn (~> 0.3.6)
+
+网络问题，找个网络连接好的地方重试即可。
