@@ -1,0 +1,799 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Matlab,Code-Less-Do-More," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Showing images is a quiet often process when dealing with image processing. Hence, I build a simpler function ezFig to wrap the common process. Instead of typing tedious code like : 123subplot(131); i">
+<meta name="keywords" content="Matlab,Code-Less-Do-More">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Code-Less-Do-More Way to Show Images in Matlab">
+<meta property="og:url" content="http://yoursite.com/2017/05/20/a-code-less-do-more-way-to-show-images-in-matlab/index.html">
+<meta property="og:site_name" content="Zhenqiang Ying">
+<meta property="og:description" content="Showing images is a quiet often process when dealing with image processing. Hence, I build a simpler function ezFig to wrap the common process. Instead of typing tedious code like : 123subplot(131); i">
+<meta property="og:image" content="http://yoursite.com/images/ezFig.jpg">
+<meta property="og:updated_time" content="2017-05-20T14:38:51.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Code-Less-Do-More Way to Show Images in Matlab">
+<meta name="twitter:description" content="Showing images is a quiet often process when dealing with image processing. Hence, I build a simpler function ezFig to wrap the common process. Instead of typing tedious code like : 123subplot(131); i">
+<meta name="twitter:image" content="http://yoursite.com/images/ezFig.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/20/a-code-less-do-more-way-to-show-images-in-matlab/"/>
+
+
+
+
+
+  <title>A Code-Less-Do-More Way to Show Images in Matlab | Zhenqiang Ying</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenqiang Ying</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Keep it simple, stupid</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-publications">
+          <a href="/publications" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            Publications
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/20/a-code-less-do-more-way-to-show-images-in-matlab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhenqiang Ying">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://secure.gravatar.com/avatar/080f75e364c0bad3572fb288fb78db66">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenqiang Ying">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A Code-Less-Do-More Way to Show Images in Matlab</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-20T19:50:03+08:00">
+                2017-05-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Showing images is a quiet often process when dealing with image processing. Hence, I build a simpler function <code>ezFig</code> to wrap the common process. Instead of typing tedious code like :</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">subplot(<span class="number">131</span>); imshow(image1);   title(<span class="string">'image1'</span>);</div><div class="line">subplot(<span class="number">132</span>); imshow(image2);   title(<span class="string">'image2'</span>);</div><div class="line">subplot(<span class="number">133</span>); imshow(image3);   title(<span class="string">'image3'</span>);</div></pre></td></tr></table></figure>
+<p>now we just need to type 4 words and press enter :</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ezFig image1 image2 image3</div></pre></td></tr></table></figure>
+<p>In this post, I will show you the basic and advanced usage, typical use cases and the implementation of <code>ezFig</code>. Hope it will be useful for you! </p>
+<a id="more"></a>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Here is a simple example for you to get started :</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">I = imread(<span class="string">'cameraman.tif'</span>);</div><div class="line">J = imread(<span class="string">'football.jpg'</span>);</div><div class="line">ezFig I I./<span class="number">2</span> (imhist(I)) J(:,:,<span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p><img src="/images/ezFig.jpg" alt=""></p>
+<h2 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h2><p>A Matlab function can be called using either <em>command syntax</em> or <em>function syntax</em> (<a href="https://cn.mathworks.com/help/matlab/ref/syntax.html" target="_blank" rel="external">Matlab Sytanx</a>). Each syntax has its advantages and disadvantages, and we can call <code>ezFig</code> using either syntax:</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ezFig image1 image2 image3         <span class="comment">% command syntax</span></div><div class="line">ezFig(image1, image2, image3);     <span class="comment">% function syntax</span></div></pre></td></tr></table></figure>
+<p>Like other <code>ezXXX</code> functions I build, <code>ezFig</code> support any number of input arguments :</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ezFig(arg1, arg2, arg3 ...)</div></pre></td></tr></table></figure>
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><p>Each input can either be:</p>
+<ul>
+<li>image data e.g. <code>I</code> where <code>I = imread(&#39;peppers.png&#39;)</code></li>
+<li>name of an image file e.g. <code>&#39;peppers.png&#39;</code></li>
+<li>Matlab objects that support <code>imshow</code> method e.g. an <code>ImCtrl</code> object</li>
+<li><code>[]</code> (an empty axes)</li>
+<li>Matlab expression e.g. <code>&#39;(imhist(I))&#39;</code> </li>
+</ul>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">% command syntax</span></div><div class="line">I = imread(<span class="string">'peppers.png'</span>);</div><div class="line">ezFig football.jpg I I./<span class="number">2</span> I(:,:,<span class="number">1</span>) im2bw(I)</div><div class="line"></div><div class="line"><span class="comment">% function syntax</span></div><div class="line">ezFig(<span class="string">'football.jpg'</span>, I,  I./<span class="number">2</span>, I(:,:,<span class="number">1</span>), im2bw(I));</div></pre></td></tr></table></figure>
+<h2 id="Advanced-Usage"><a href="#Advanced-Usage" class="headerlink" title="Advanced Usage"></a>Advanced Usage</h2><p>When the data type of the first input is <code>struct</code>, it will be considered as the parameters.</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">% global setting</span></div><div class="line">globalVar ezFig_interpreter none</div><div class="line">globalVar ezFig_titleFormat &lt;<span class="comment">%class&gt;%name</span></div><div class="line"></div><div class="line">ezFig football.jpg I I./<span class="number">2</span> I(:,:,<span class="number">1</span>) im2bw(I) </div><div class="line"></div><div class="line"><span class="comment">% local setting</span></div><div class="line">cfg.titleFormat = <span class="string">'%name'</span>;</div><div class="line">cfg.layout = [<span class="number">0</span> <span class="number">1</span> <span class="number">1</span></div><div class="line">              <span class="number">2</span> <span class="number">2</span> <span class="number">3</span></div><div class="line">              <span class="number">4</span> <span class="number">0</span> <span class="number">0</span>];</div><div class="line">ezFig(cfg, <span class="string">'peppers.png'</span>, <span class="string">'cameraman.tif'</span>, <span class="string">'pout.tif'</span>, <span class="string">'football.jpg'</span>);</div></pre></td></tr></table></figure>
+<h2 id="Typical-Use-Cases"><a href="#Typical-Use-Cases" class="headerlink" title="Typical Use Cases"></a>Typical Use Cases</h2><ul>
+<li>Use command syntax in command window may save you tons of time!</li>
+<li>Set <code>debugLevel</code> so that the images will be displayed only when debugging without changing the code. </li>
+</ul>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><h3 id="Requirement"><a href="#Requirement" class="headerlink" title="Requirement"></a>Requirement</h3><ul>
+<li>globalVar</li>
+</ul>
+<ul>
+<li>loaddefault</li>
+</ul>
+<h3 id="Source-code"><a href="#Source-code" class="headerlink" title="Source code"></a>Source code</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">h</span> = <span class="title">ezFig</span><span class="params">(varargin)</span></span></div><div class="line"><span class="comment">%ezFig help you show figure with images easily</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> nargin == <span class="number">0</span></div><div class="line">    showhelp</div><div class="line">    <span class="comment">% ezFig('peppers.png', 'cameraman.tif', 'football.jpg');</span></div><div class="line">    <span class="built_in">disp</span> <span class="string">'Example 1 - command-like usage. Press any key to start.'</span></div><div class="line">    pause;</div><div class="line">    I = imread(<span class="string">'football.jpg'</span>);</div><div class="line">    ezFig <span class="string">''</span>peppers.png''  [] cameraman.tif <span class="string">'football.jpg'</span> I I./<span class="number">2</span></div><div class="line">    </div><div class="line">    <span class="built_in">disp</span> <span class="string">'Example 2 - function-like usage. Press any key to start.'</span></div><div class="line">    pause</div><div class="line">    ezFig(<span class="string">'peppers.png'</span>, ezAxes(<span class="string">'cameraman.tif'</span>, <span class="string">'football.jpg'</span>));</div><div class="line">    </div><div class="line">    <span class="built_in">disp</span> <span class="string">'Example 3 - layout configuration. Press any key to start.'</span></div><div class="line">    pause;</div><div class="line">    cfg.layout = [<span class="number">1</span> <span class="number">1</span> <span class="number">0</span></div><div class="line">        <span class="number">2</span> <span class="number">2</span> <span class="number">3</span></div><div class="line">        <span class="number">4</span> <span class="number">4</span> <span class="number">4</span>];</div><div class="line">    ezFig(cfg, <span class="string">'peppers.png'</span>, <span class="string">'cameraman.tif'</span>, <span class="string">'pout.tif'</span>, <span class="string">'football.jpg'</span>);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">names = arrayfun(@inputname,<span class="number">1</span>:<span class="built_in">numel</span>(varargin),<span class="string">'uniformoutput'</span>,false);</div><div class="line">args = struct(<span class="string">'name'</span>,names,<span class="string">'value'</span>, varargin);</div><div class="line"></div><div class="line"><span class="comment">%% cfg</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> isstruct(varargin&#123;<span class="number">1</span>&#125;)</div><div class="line">    cfg = varargin&#123;<span class="number">1</span>&#125;;</div><div class="line">    args = args(<span class="number">2</span>:<span class="keyword">end</span>);</div><div class="line"><span class="keyword">else</span></div><div class="line">    cfg = struct;</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">default.interpreter = globalVar(<span class="string">'ezFig_interpreter'</span>, <span class="string">'tex'</span>);</div><div class="line">default.titleFormat = globalVar(<span class="string">'ezFig_titleFormat'</span>, <span class="string">'%name\color&#123;blue&#125;&lt;%class&gt;'</span>);</div><div class="line">cfg = loaddefault(cfg, default);</div><div class="line"></div><div class="line"><span class="keyword">if</span> isfield(cfg, <span class="string">'layout'</span>)</div><div class="line">    mat = cfg.layout;</div><div class="line">    [r, c] = <span class="built_in">size</span>(mat);</div><div class="line">    mat = mat'; mat = mat(:); <span class="comment">% convert to a vector</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    narg = <span class="built_in">numel</span>(args);</div><div class="line">    r = <span class="built_in">floor</span>(<span class="built_in">sqrt</span>(narg));</div><div class="line">    c = <span class="built_in">ceil</span>(narg/r);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">%% main</span></div><div class="line">n = <span class="number">0</span>;</div><div class="line"><span class="comment">% h = gcf;</span></div><div class="line">h = figure; <span class="comment">% default: new figure</span></div><div class="line"><span class="keyword">for</span> arg = args, n = n + <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> <span class="built_in">isempty</span>(arg.value) || strcmp(arg.value, <span class="string">'[]'</span>); <span class="keyword">continue</span>; <span class="keyword">end</span> </div><div class="line">    </div><div class="line">    <span class="comment">% first setup new subplot to allow some function eg. hist</span></div><div class="line">    <span class="keyword">if</span> isfield(cfg, <span class="string">'layout'</span>)</div><div class="line">        pStart = <span class="built_in">find</span>( mat==n, <span class="number">1</span>, <span class="string">'first'</span>);</div><div class="line">        pEnd =  <span class="built_in">find</span>( mat==n, <span class="number">1</span>, <span class="string">'last'</span>);</div><div class="line">        subplot(r, c, [pStart pEnd]);</div><div class="line">    <span class="keyword">else</span></div><div class="line">        subplot(r, c, n);</div><div class="line">    <span class="keyword">end</span></div><div class="line">    </div><div class="line">    <span class="keyword">if</span> <span class="built_in">isempty</span>(arg.name)</div><div class="line">        <span class="keyword">if</span> ischar(arg.value) <span class="comment">% expression or 'image.jpg'</span></div><div class="line">            arg.name = arg.value;</div><div class="line">            <span class="keyword">try</span></div><div class="line">                <span class="comment">%if 2 == exist(arg.value, 'file') % image file</span></div><div class="line">                    arg.value = imread(arg.name); <span class="comment">% not necessary</span></div><div class="line">                <span class="comment">%end</span></div><div class="line">            <span class="keyword">catch</span> <span class="comment">% expression</span></div><div class="line">                <span class="keyword">if</span> arg.value(<span class="number">1</span>) == <span class="string">'('</span> &amp;&amp; arg.value(<span class="keyword">end</span>) == <span class="string">')'</span></div><div class="line">                    evalin(<span class="string">'caller'</span>, arg.value);</div><div class="line">                <span class="keyword">else</span></div><div class="line">                    arg.value = evalin(<span class="string">'caller'</span>, arg.value);</div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">        <span class="comment">%<span class="doctag">TODO:</span> if isobject try char(object)</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    </div><div class="line">    <span class="comment">% arg.value can be: image, imagefilename, object</span></div><div class="line">    <span class="keyword">try</span></div><div class="line">        <span class="comment">%if ~isvector(arg.value) % imhist</span></div><div class="line">        imshow(arg.value);</div><div class="line">        <span class="comment">%end</span></div><div class="line">    <span class="keyword">catch</span> <span class="comment">% more robust % allow histogram</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="comment">%title(arg.name);</span></div><div class="line">    <span class="keyword">if</span> ~strcmp(cfg.interpreter, <span class="string">'none'</span>)</div><div class="line">        arg.name = strrep(arg.name, <span class="string">'_'</span>, <span class="string">'\_'</span>);</div><div class="line">    <span class="keyword">end</span></div><div class="line">    </div><div class="line">    text = strrep(cfg.titleFormat, <span class="string">'%name'</span>, arg.name);</div><div class="line">    text = strrep(text, <span class="string">'%class'</span>, class(arg.value));</div><div class="line">    title(text, <span class="string">'Interpreter'</span>, cfg.interpreter);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> nargout == <span class="number">0</span>, clear h; <span class="keyword">end</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Matlab/" rel="tag"># Matlab</a>
+          
+            <a href="/tags/Code-Less-Do-More/" rel="tag"># Code-Less-Do-More</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/21/Welcome/" rel="prev" title="Welcome">
+                Welcome <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://secure.gravatar.com/avatar/080f75e364c0bad3572fb288fb78db66"
+               alt="Zhenqiang Ying" />
+          <p class="site-author-name" itemprop="name">Zhenqiang Ying</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/baidut" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.linkedin.com/in/yingzhenqiang/" target="_blank" title="Linkedin">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  Linkedin
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">1.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Syntax"><span class="nav-number">2.</span> <span class="nav-text">Syntax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Usage"><span class="nav-number">3.</span> <span class="nav-text">Basic Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advanced-Usage"><span class="nav-number">4.</span> <span class="nav-text">Advanced Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Typical-Use-Cases"><span class="nav-number">5.</span> <span class="nav-text">Typical Use Cases</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">6.</span> <span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Requirement"><span class="nav-number">6.1.</span> <span class="nav-text">Requirement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Source-code"><span class="nav-number">6.2.</span> <span class="nav-text">Source code</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenqiang Ying</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
