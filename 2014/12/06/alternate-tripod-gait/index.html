@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Simulate the alternate tripod gait using Webots | BitBlog | 1 Bit = 1.1102e-16 Pebibyte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="robot">
+    <meta name="description" content="本文介绍三脚架对换式步态 （alternate tripod gait）的实现 1234┌───────────┐          ^ right│ 0   1   2 │          │ │ 3   4   5 │ front &amp;lt;──┘└───────────┘ 一侧的前后两足和另一侧的中间足构成一个三脚架，每一时刻有一个三脚架处于支撑相，另一个三脚架出于摆动相，每隔半个周期进行切">
+<meta name="keywords" content="robot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Simulate the alternate tripod gait using Webots">
+<meta property="og:url" content="https://baidut.github.io/2014/12/06/alternate-tripod-gait/index.html">
+<meta property="og:site_name" content="BitBlog">
+<meta property="og:description" content="本文介绍三脚架对换式步态 （alternate tripod gait）的实现 1234┌───────────┐          ^ right│ 0   1   2 │          │ │ 3   4   5 │ front &amp;lt;──┘└───────────┘ 一侧的前后两足和另一侧的中间足构成一个三脚架，每一时刻有一个三脚架处于支撑相，另一个三脚架出于摆动相，每隔半个周期进行切">
+<meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/swap.png">
+<meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/initState.png">
+<meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/gait_forward.gif">
+<meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/gait_turnLeft.gif">
+<meta property="og:updated_time" content="2017-09-04T15:25:08.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Simulate the alternate tripod gait using Webots">
+<meta name="twitter:description" content="本文介绍三脚架对换式步态 （alternate tripod gait）的实现 1234┌───────────┐          ^ right│ 0   1   2 │          │ │ 3   4   5 │ front &amp;lt;──┘└───────────┘ 一侧的前后两足和另一侧的中间足构成一个三脚架，每一时刻有一个三脚架处于支撑相，另一个三脚架出于摆动相，每隔半个周期进行切">
+<meta name="twitter:image" content="https://github.com/baidut/rhexapod/wiki/images/swap.png">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/images/github.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Zhenqiang Ying</h5>
+          <a href="mailto:zqying@pku.edu.cn" title="zqying@pku.edu.cn" class="mail">zqying@pku.edu.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/baidut" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Projects"  >
+                <i class="icon icon-lg icon-folder-open"></i>
+                Projects
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Publications"  >
+                <i class="icon icon-lg icon-book"></i>
+                Publications
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Simulate the alternate tripod gait using Webots</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Simulate the alternate tripod gait using Webots</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-12-05T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2014-12-06
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Programming/">Programming</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-alternate-tripod-gait"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Simulate the alternate tripod gait using Webots</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-12-06 00:00:00" datetime="2014-12-05T16:00:00.000Z"  itemprop="datePublished">2014-12-06</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Programming/">Programming</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文介绍三脚架对换式步态 （alternate tripod gait）的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">┌───────────┐          ^ right</div><div class="line">│ 0   1   2 │          │ </div><div class="line">│ 3   4   5 │ front &lt;──┘</div><div class="line">└───────────┘</div></pre></td></tr></table></figure>
+<p>一侧的前后两足和另一侧的中间足构成一个三脚架，每一时刻有一个三脚架处于支撑相，另一个三脚架出于摆动相，每隔半个周期进行切换。</p>
+<p>足沿着轴摆动时，我们把处于支撑相的这段叫做小摆(smallSwap)，把处于摆动相的这段叫做大摆(bigSwap)。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://github.com/baidut/rhexapod/wiki/images/swap.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RATE 		1.0/6  <span class="comment">// 小摆占圆周的比率</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> smallSwap	2 * M_PI * RATE</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> bigSwap		2 * M_PI * (1-RATE)</span></div></pre></td></tr></table></figure>
+<p>步态涉及两个状态，一个是奇数号三脚架大摆，偶数号三脚架小摆；另一个是奇数号三脚架小摆，偶数号三脚架大摆。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> posSwap [NUM_STATES][NUM_SERVOS] = &#123;</div><div class="line">	&#123;smallSwap	,bigSwap  	,smallSwap	,bigSwap  	,smallSwap	,bigSwap  &#125;,</div><div class="line">	&#123;bigSwap  	,smallSwap	,bigSwap  	,smallSwap	,bigSwap  	,smallSwap&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>初始时六足偶数号在前（进入支撑相），奇数号在后（离开地面进入摆动相）。准备进入第一个状态。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://github.com/baidut/rhexapod/wiki/images/initState.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span>  pos[NUM_SERVOS] = &#123;</div><div class="line">	-smallSwap/<span class="number">2</span>,+smallSwap/<span class="number">2</span>,-smallSwap/<span class="number">2</span>,</div><div class="line">	+smallSwap/<span class="number">2</span>,-smallSwap/<span class="number">2</span>,+smallSwap/<span class="number">2</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>主循环每隔一定周期调整一次各个足的位置，进入下一个状态。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span>(<span class="number">1</span>) &#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> AJUST_PERIOD 50</span></div><div class="line">	elapsed++;</div><div class="line">	<span class="keyword">if</span>(elapsed % AJUST_PERIOD!=<span class="number">0</span>) <span class="keyword">continue</span>;</div><div class="line">	state = !state; </div><div class="line">	</div><div class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUM_SERVOS; i++ )&#123;</div><div class="line">		servo_set_position(servos[i], pos[i]);</div><div class="line">		pos[i] += posSwap[state][i];</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调整两侧足的运行方向，两侧足同向后运行，就可以实现倒退；一侧足向前，一侧足向后，就可以实现原地转弯。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> 	goForward	[] = &#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> 	goBackward	[] = &#123;<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> 	turnLeft	[] = &#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>&#125;;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> 	turnRight	[] = &#123;<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;</div></pre></td></tr></table></figure>
+<p>加上转向，完整的仿真程序如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;webots/robot.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;webots/servo.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM_SERVOS 	6</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM_STATES 	2</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RATE 	 	1.0/6</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> smallSwap	2 * M_PI * RATE</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> bigSwap		2 * M_PI * (1-RATE)</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TIME_STEP 	16</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> AJUST_PERIOD 	50</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *SERVO_NAMES[] = &#123;</div><div class="line">        <span class="string">"servo_r0"</span>,</div><div class="line">        <span class="string">"servo_r1"</span>,</div><div class="line">        <span class="string">"servo_r2"</span>,</div><div class="line">        <span class="string">"servo_l0"</span>,</div><div class="line">        <span class="string">"servo_l1"</span>,</div><div class="line">        <span class="string">"servo_l2"</span></div><div class="line">	&#125;;</div><div class="line">	WbDeviceTag servos[NUM_SERVOS];</div><div class="line">  </div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> 	goForward	[] = &#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> 	goBackward	[] = &#123;<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>&#125;;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> 	turnLeft	[] = &#123; <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>,<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>&#125;;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span> 	turnRight	[] = &#123;<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;;</div><div class="line"></div><div class="line">	<span class="keyword">const</span> <span class="keyword">double</span> posSwap [NUM_STATES][NUM_SERVOS] = &#123;</div><div class="line">		&#123;smallSwap	,bigSwap  	,smallSwap	,bigSwap  	,smallSwap	,bigSwap  &#125;,</div><div class="line">		&#123;bigSwap  	,smallSwap	,bigSwap  	,smallSwap	,bigSwap  	,smallSwap&#125;</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">double</span>  pos[NUM_SERVOS] = &#123;</div><div class="line">		-smallSwap/<span class="number">2</span>,+smallSwap/<span class="number">2</span>,-smallSwap/<span class="number">2</span>,</div><div class="line">		+smallSwap/<span class="number">2</span>,-smallSwap/<span class="number">2</span>,+smallSwap/<span class="number">2</span></div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">int</span> i;</div><div class="line">	</div><div class="line">	<span class="comment">// 初始化Webots链接舵机</span></div><div class="line">	wb_robot_init();</div><div class="line">  </div><div class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUM_SERVOS; i++) &#123;</div><div class="line">		servos[i] = wb_robot_get_device(SERVO_NAMES[i]);</div><div class="line">		<span class="keyword">if</span> (!servos[i])</div><div class="line">			<span class="built_in">printf</span>(<span class="string">"could not find servo: %s\n"</span>,SERVO_NAMES[i]);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="keyword">const</span> <span class="keyword">int</span>* dir = turnRight;<span class="comment">//turnLeft;//goBackward;// goForward;</span></div><div class="line">	<span class="keyword">int</span>  state;</div><div class="line">	<span class="keyword">int</span>  elapsed = <span class="number">0</span>;</div><div class="line">	</div><div class="line">	<span class="comment">// 初始位置</span></div><div class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUM_SERVOS; i++ )</div><div class="line">		pos[i] =  dir[i] * pos[i];</div><div class="line">	<span class="comment">// 主循环</span></div><div class="line">	<span class="keyword">while</span>(wb_robot_step(TIME_STEP)!=<span class="number">-1</span>) &#123; </div><div class="line">	    elapsed++;</div><div class="line">		<span class="keyword">if</span>(elapsed % AJUST_PERIOD!=<span class="number">0</span>) <span class="keyword">continue</span>;</div><div class="line">		state = (elapsed / AJUST_PERIOD + <span class="number">1</span>) % NUM_STATES;</div><div class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUM_SERVOS; i++ )&#123;</div><div class="line">			wb_servo_set_position(servos[i], pos[i]);</div><div class="line">			pos[i] += dir[i] * posSwap[state][i]; </div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	wb_robot_cleanup();</div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>仿真结果如下：</p>
+<p><img src="https://github.com/baidut/rhexapod/wiki/images/gait_forward.gif" alt="直走仿真">   <img src="https://github.com/baidut/rhexapod/wiki/images/gait_turnLeft.gif" alt="旋转仿真"></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-09-04T15:25:08.368Z" itemprop="dateUpdated">2017-09-04 23:25:08</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://baidut.github.io">
+            <img src="/images/github.png" alt="Zhenqiang Ying">
+            Zhenqiang Ying
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/robot/">robot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/&title=《Simulate the alternate tripod gait using Webots》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/&title=《Simulate the alternate tripod gait using Webots》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2014/12/06/alternate-tripod-gait/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Simulate the alternate tripod gait using Webots》 — BitBlog&url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2015/01/31/JPEGParser/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">JPEGHexViewer</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/12/06/rhexapod/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Build a six-legged robot (RHEX)</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Zhenqiang Ying &copy; 2015 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/&title=《Simulate the alternate tripod gait using Webots》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/&title=《Simulate the alternate tripod gait using Webots》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2014/12/06/alternate-tripod-gait/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Simulate the alternate tripod gait using Webots》 — BitBlog&url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2014/12/06/alternate-tripod-gait/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aQY7DIBBE0dz/0p4LxNavgoxk+nsVKYnhsWjRBZ8Pfi7w3P3y7m3Po3x+8ciQIeO1jG5yZEj+rw3jypAhYwDjuSzeDUyK6d3kOAOVbBkyZMgAm7+V4vs8lgwZMmR0BZeDuwWSIUOGjK6JXQnISBNLivuGXlyGDBkvZPDU/f8//+R8Q4YMGa9iXOGTNrFd0BbPSoYMGUczeIEjWzq+iQwmx+cjQ4aMQxkklE9LcHo57Pk9aKFlyJAxgMEH7ooy/7ZbYhkyZMxhPBfZdEj+tg0HADJkyBjA4GF9t0EkpKVtogwZMo5m8MKXxv3psehKMyxDhoyzGahFrA4PyDEnKa+o+MqQIWMkg6TuPJPfFcMFqaEMGTKOY3ShfHdFjEyRX9oI0j4ZMmS8lsEHSOMw3kN3EZsMGTLmMNI0Ls3wOny6uDJkyJjASON7XuW6g08S8H0puDJkyDiUsTIhTk2PAfjyxRtEGTJkvJzRbQF5rL/r+kXci8uQIeMgRnrBoiu+/BJGenVDhgwZExjdQSOveKSIr4RxMmTImMPoAq9uot3GMbhsIUOGjCMYV/isH1Wm/0XlXoYMGUczdtVsfgBAFuj5bekyyZAh4wxGHGxVsRqP59JCL0OGjDmM9asSPO5Pg7zysoUMGTLGM7rWNL2owQu9DBkyZPDyurdMk0MIGTJkzGGQJpb/hrS1vPVF5ViGDBlHM3jrmJZO/s4ugJMhQ8YAxh8H1bJQqpZi6AAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'I'm here';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Thanks for visiting';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

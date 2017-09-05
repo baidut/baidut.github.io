@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images | BitBlog | 1 Bit = 1.1102e-16 Pebibyte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="image processing,image Enhancement">
+    <meta name="description" content="Low-light image enhancement algorithms can improve the subjective visual quality of low-light images and support the extraction of valuable information for some computer vision techniques. Although ma">
+<meta name="keywords" content="image processing,image Enhancement">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images">
+<meta property="og:url" content="https://baidut.github.io/2017/09/01/vcip2017color/index.html">
+<meta property="og:site_name" content="BitBlog">
+<meta property="og:description" content="Low-light image enhancement algorithms can improve the subjective visual quality of low-light images and support the extraction of valuable information for some computer vision techniques. Although ma">
+<meta property="og:updated_time" content="2017-09-04T14:26:13.447Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images">
+<meta name="twitter:description" content="Low-light image enhancement algorithms can improve the subjective visual quality of low-light images and support the extraction of valuable information for some computer vision techniques. Although ma">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/images/github.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Zhenqiang Ying</h5>
+          <a href="mailto:zqying@pku.edu.cn" title="zqying@pku.edu.cn" class="mail">zqying@pku.edu.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/baidut" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Projects"  >
+                <i class="icon icon-lg icon-folder-open"></i>
+                Projects
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Publications"  >
+                <i class="icon icon-lg icon-book"></i>
+                Publications
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-31T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-09-01
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Publications/">Publications</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-vcip2017color"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-09-01 00:00:00" datetime="2017-08-31T16:00:00.000Z"  itemprop="datePublished">2017-09-01</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Publications/">Publications</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Low-light image enhancement algorithms can improve the subjective visual quality of low-light images and support the extraction of valuable information for some computer vision techniques. Although many low-light image enhancement algorithms have been developed in recent years, the assessment methods for enhanced images are still open topics. In this paper, we use multi-exposure image sequences and a camera response model to calculate the color distortion of enhanced images. Specifically, we first select the useful information from a multi-exposure image sequence to form a reference image based on the illumination of the enhanced image. Then, we calculate the exposure ratio map between the reference image and the enhanced image for each color channel using the camera response model. Finally, the color distortion is calculated based on the difference between three color channel exposure ratios. Experiment results show that the Pearson’s linear correction coefficient (PLCC) and Spearman’s rank correlation coefficient (SRCC) between the results of our reduced-reference method and that of the full-reference CIE L<em>a</em>b<em> color difference method (∆E</em>ab ) are close to 1. Meanwhile, our method is significantly superior to the existing enhanced image color metrics. <a id="more"></a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-09-04T14:26:13.447Z" itemprop="dateUpdated">2017-09-04 22:26:13</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://baidut.github.io">
+            <img src="/images/github.png" alt="Zhenqiang Ying">
+            Zhenqiang Ying
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image-Enhancement/">image Enhancement</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/image-processing/">image processing</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2017/09/01/vcip2017color/&title=《A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2017/09/01/vcip2017color/&title=《A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images》 — BitBlog&source=Low-light image enhancement algorithms can improve the subjective visual qual..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2017/09/01/vcip2017color/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images》 — BitBlog&url=https://baidut.github.io/2017/09/01/vcip2017color/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2017/09/01/vcip2017color/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/09/01/vcip2017underwater/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">A New Underwater Image Enhancing Method via Color Correction and Illumination Adjustment</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/22/caip2017deshadow/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">A New Shadow Removal Method using Color-Lines</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Zhenqiang Ying &copy; 2015 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2017/09/01/vcip2017color/&title=《A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2017/09/01/vcip2017color/&title=《A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images》 — BitBlog&source=Low-light image enhancement algorithms can improve the subjective visual qual..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2017/09/01/vcip2017color/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《A Reduced-reference Color Distortion Measurement Scheme for Enhanced Low-light Images》 — BitBlog&url=https://baidut.github.io/2017/09/01/vcip2017color/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2017/09/01/vcip2017color/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3a22rDMBAFwPz/T6fQt1Jkn10pLZbGT8UJjiaFzd5er/h6f19r74xe/X1/2YWBgfFYxvvyGn3A6NXRUUaHyz/3+vkYGBgnMK6D7M0jWl9KLygP72NgYGDER6+mhnlYx8DAwFjLqIZmDAwMjIRRTeaum2UzofbjtTgGBsYDGdXBwF/+/cH5BgYGxkMY7+I1M3rshePoVBgYGFszkrQsKiCL7f6cl7f2MDAwdmXkrfxeOO4tbeQB+sfvBgYGxtaMJNXL3zNPKjfmMDAwtmb0ViLy9yRpZZ4y3nwKBgbG1oy1ixfzpWke6Av/GQwMjMcyemsTCTIJ0PNJJwYGxgmMvGTNw25vSJmPAYZnwMDA2JrxXxtWeWLazHAxMDA2YiQhMg+FvaWKauIY/W5gYGBsx/hE8K0OR6vpIwYGxgmMavmah8K8Gdej3nQNMTAwNmIk48P5wjVfmMhPcpPhYmBgHMCYKUTzQ/SWxjAwMM5k5AtYq4rPPECXG4IYGBjbMaoHrXby8mdOpYYYGBiHMarbGb2lirXNOAwMjL0Z+WJWnvwVZqcTC2HN/TIMDIwHMnrrFNVmWZ4O5mOA4SQWAwNjO0YvgUuiXG/JrLpYhoGBcQ4jf3Q0YSjen2m6YWBgnMZICtd8YDCfVpbfiYGBgVFcnmg29APSgoCLgYFxDOMTbbKZNQ4MDIwTGHkRu+q4+dcRJZ0YGBhbM6ZKx0WFaD4AaAIwMDCeyvgCgqDMUmjhOcQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'I'm here';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Thanks for visiting';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
