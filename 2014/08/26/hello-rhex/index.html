@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Hello RHEX | BitBlog | 1 Bit = 1.1102e-16 Pebibyte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="robot,C">
+    <meta name="description" content="足式机器人和轮式机器人的结合-旋转足式机器人 足式机器人能够通过移动足灵活地调整行走姿态，具有较强的地形适应能力，但往往速度慢，负载少；轮式机器人解决了以上问题，但往往只能应用于平地运输。RHex是一种旋转足式的机器人，兼得两者的优点，不仅能够应对复杂地形，还具备负载能力和非常快的速度，还可以跳跃。 跳跃能力 大多数陆地动物都拥有跳跃能力，这是一个非常重要的生存技能，如果没有了跳跃，那估计有很多事">
+<meta name="keywords" content="robot,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello RHEX">
+<meta property="og:url" content="https://baidut.github.io/2014/08/26/hello-rhex/index.html">
+<meta property="og:site_name" content="BitBlog">
+<meta property="og:description" content="足式机器人和轮式机器人的结合-旋转足式机器人 足式机器人能够通过移动足灵活地调整行走姿态，具有较强的地形适应能力，但往往速度慢，负载少；轮式机器人解决了以上问题，但往往只能应用于平地运输。RHex是一种旋转足式的机器人，兼得两者的优点，不仅能够应对复杂地形，还具备负载能力和非常快的速度，还可以跳跃。 跳跃能力 大多数陆地动物都拥有跳跃能力，这是一个非常重要的生存技能，如果没有了跳跃，那估计有很多事">
+<meta property="og:updated_time" content="2017-09-04T15:39:50.542Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello RHEX">
+<meta name="twitter:description" content="足式机器人和轮式机器人的结合-旋转足式机器人 足式机器人能够通过移动足灵活地调整行走姿态，具有较强的地形适应能力，但往往速度慢，负载少；轮式机器人解决了以上问题，但往往只能应用于平地运输。RHex是一种旋转足式的机器人，兼得两者的优点，不仅能够应对复杂地形，还具备负载能力和非常快的速度，还可以跳跃。 跳跃能力 大多数陆地动物都拥有跳跃能力，这是一个非常重要的生存技能，如果没有了跳跃，那估计有很多事">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/images/github.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Zhenqiang Ying</h5>
+          <a href="mailto:zqying@pku.edu.cn" title="zqying@pku.edu.cn" class="mail">zqying@pku.edu.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/baidut" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Projects"  >
+                <i class="icon icon-lg icon-folder-open"></i>
+                Projects
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Publications"  >
+                <i class="icon icon-lg icon-book"></i>
+                Publications
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hello RHEX</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hello RHEX</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-08-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2014-08-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Programming/">Programming</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结构特征"><span class="post-toc-text">结构特征</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-hello-rhex"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hello RHEX</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-08-26 00:00:00" datetime="2014-08-25T16:00:00.000Z"  itemprop="datePublished">2014-08-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Programming/">Programming</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong>足式机器人和轮式机器人的结合-旋转足式机器人</strong> 足式机器人能够通过移动足灵活地调整行走姿态，具有较强的地形适应能力，但往往速度慢，负载少；轮式机器人解决了以上问题，但往往只能应用于平地运输。RHex是一种旋转足式的机器人，兼得两者的优点，不仅能够应对复杂地形，还具备负载能力和非常快的速度，还可以跳跃。</p>
+<p><strong>跳跃能力</strong> 大多数陆地动物都拥有跳跃能力，这是一个非常重要的生存技能，如果没有了跳跃，那估计有很多事情都做不了。而对于机器人而言，没有跳跃能力的变得更为显眼，因此机器人的自由程度非常有限，遇到一些沟槽和矮墙，就直接瘫痪了。 在阿富汗战场上，波士顿动力公司的Sand Flea机器人凭借着出色的可移动性为美国大兵打来了极大的帮助，而这也带动了跳跃机器人的发展。就在这款机器人闻名的几个月后，美国国防部高级研究计划局就开始研制RHex，它放弃纯粹的竖直跳跃以支持多种多样的移动方式，不仅可以跳跃，还能游泳、爬楼梯，可移动性更强。 RHex共具有6条腿，被设计成弯曲的弧状，这种巧妙的设计能允许机器人做出很多匪夷所思的跳跃。RHex可以双足跳跃，四足跳跃、六足跳跃，还可以连续跳跃。通过不同的跳跃模式达到不同的效果，比如跳跃沟槽，攀爬矮墙，或者是180跳跃翻身。它能以抛物线的形状跳过很长的鸿沟；可以自动根据之前的跳跃，确定下一步跳跃的范围。</p>
+<p><strong>水陆两栖</strong> RHex不仅能跳能爬，由于其粗糙的外表设计，它还是防水的，这意味着他能完全潜到水底。而且，它弧状的腿也很适合游泳。通过精准控制这6条腿，这款机器人能游过很长距离的海滩，而且速度可以达到10千米每小时。另外，它还能攀爬螺旋式的阶梯，所以一旦它被运用到战场上，将比Sand Flea发挥更大的作用。</p>
+<h2 id="结构特征"><a href="#结构特征" class="headerlink" title="结构特征"></a>结构特征</h2><p>行走机构分别为六个相同大小的偏心圆，均匀分布在机身的两侧，其中中间两个腿相对机身向外更突出，且每个行走机构由一个直流减速电机驱动</p>
+<blockquote>
+<p>参考文献</p>
+<ol>
+<li><a href="http://news.pconline.com.cn/331/3312993.html" target="_blank" rel="external">X-RHex Lite：能跳跃爬楼的六足机器人</a></li>
+<li><a href="http://digi.tech.qq.com/zt2013/robot/index.htm" target="_blank" rel="external">看那些已经入侵生活的机器人</a></li>
+</ol>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-09-04T15:39:50.542Z" itemprop="dateUpdated">2017-09-04 23:39:50</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://baidut.github.io">
+            <img src="/images/github.png" alt="Zhenqiang Ying">
+            Zhenqiang Ying
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/robot/">robot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2014/08/26/hello-rhex/&title=《Hello RHEX》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2014/08/26/hello-rhex/&title=《Hello RHEX》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2014/08/26/hello-rhex/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello RHEX》 — BitBlog&url=https://baidut.github.io/2014/08/26/hello-rhex/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2014/08/26/hello-rhex/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/08/26/hello-webots/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Hello Webots</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Zhenqiang Ying &copy; 2015 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2014/08/26/hello-rhex/&title=《Hello RHEX》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2014/08/26/hello-rhex/&title=《Hello RHEX》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2014/08/26/hello-rhex/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello RHEX》 — BitBlog&url=https://baidut.github.io/2014/08/26/hello-rhex/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2014/08/26/hello-rhex/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJUlEQVR42u3aSY7jMBAEQP//054HNCxkktQAJEMnAy3LDB2qa/t84uv753r+a3L/86983rgwMDC2ZSQ//y2vX8fKX0R+NgwMjHsYvyJY8vk5UP46XM54PhsGBgbG89HzcJkfFwMDA2Oe8fytpMbM78HAwMBoi9j8cHlIbVPPBbU4BgbGhow8XP7/z6/MNzAwMLZizLf726I0TweLU2FgYBzNyAPcqmSxbc8VJTEGBsahjDzYJQda1VyrW3sYGBiXMdrWf15wjoGjMSoGBsbRjLzIHGv6J6GzKFNn3igGBsa2jLFBY5vA5W27dgUEAwPjBkY+DczLzvZF5M+v/4dgYGAcxBhrx+cBcWbBolhWw8DAOJTRFqj5MHJsLWMsrcTAwDibMdbiH8s9x5LIOgPEwMA4mpGMCfMmfp5Eji1bYGBgYIytgo29iDyMFvdjYGAczciLz7ESdP41YWBg3Mxop50zP7ZqVDA1yMTAwNiKkZSp+dhgbV1ZBHoMDIxrGHlYnAHnjbyk9MXAwLiT0a5TrGqltQtnn3x6gIGBcQSjXYZ4o7idejIGBsahjG955U38mSAbJYIYGBjXMMaCXR6a8zJ1bGxQwzAwMLZltEG2DdntUkVOxcDAuI2RB75VKWDRSkuehoGBgREznr/VJohFeYyBgYERhNSx0JykodFIFQMD4wJGu5g102LLw+grtTgGBsaGjLx0XDW2HAvoC4aaGBgY+zH+Ac/7aphLfLMBAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'I'm here';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Thanks for visiting';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

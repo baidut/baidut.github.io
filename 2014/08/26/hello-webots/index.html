@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Hello Webots | BitBlog | 1 Bit = 1.1102e-16 Pebibyte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="robot,C">
+    <meta name="description" content="构建世界                                                                                             img              在视图菜单下的 最后一项 显示灯光位置 这点和说明书不匹配">
+<meta name="keywords" content="robot,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hello Webots">
+<meta property="og:url" content="https://baidut.github.io/2014/08/26/hello-webots/index.html">
+<meta property="og:site_name" content="BitBlog">
+<meta property="og:description" content="构建世界                                                                                             img              在视图菜单下的 最后一项 显示灯光位置 这点和说明书不匹配">
+<meta property="og:image" content="http://imglf2.ph.126.net/URmDbvUv08D_EN5bILk1uQ==/6608768570376055382.jpg">
+<meta property="og:image" content="http://imglf1.ph.126.net/EqdbV-fECTJ62rEIZFowEw==/6619454723886048793.png">
+<meta property="og:image" content="http://imglf1.ph.126.net/E4u57CptYrC497c3LXYQew==/6608549767562127856.jpg">
+<meta property="og:image" content="http://imglf1.ph.126.net/Ahwu_baYl9YsH7bv0WdiCA==/6608945591748130369.jpg">
+<meta property="og:image" content="http://imglf1.ph.126.net/GrmSyffC2FazwYpnUI3kWw==/6608581653399331426.jpg">
+<meta property="og:image" content="http://imglf2.ph.126.net/egi0BhGgNd-RADLeyQmVtQ==/6619334877118620005.jpg">
+<meta property="og:image" content="http://imglf0.ph.126.net/Gu5bj1zPaPkwhkArtOw0Og==/3763320438721720032.gif">
+<meta property="og:image" content="http://imglf0.ph.126.net/n4OfbU-Lst5k_OT169UF6A==/6608933497120222635.gif">
+<meta property="og:image" content="http://imglf2.ph.126.net/QezywXALqQNUGLoVd-mwLw==/6608724589910944685.jpg">
+<meta property="og:image" content="http://imglf2.ph.126.net/iN2vf8eAtnb8Ro5EYL5TEQ==/2082070402828926179.gif">
+<meta property="og:image" content="http://imglf2.ph.126.net/YCKyq5ZIncDsO8Iv4KniGw==/2266999462528387055.gif">
+<meta property="og:image" content="http://imglf2.ph.126.net/bHtuBqGRSG8dF5q6rC1IaA==/6619390952211639929.jpg">
+<meta property="og:image" content="http://imglf1.ph.126.net/YSsYAId_8DhSes-Om8lp4A==/6619418440002333202.jpg">
+<meta property="og:image" content="http://imglf2.ph.126.net/LSTZsI5bGAc-SHKllmIe1A==/2671479004061349884.jpg">
+<meta property="og:image" content="http://imglf2.ph.126.net/sTOZMOGKvsfWjwOgEqr5eA==/6608178132633050354.jpg">
+<meta property="og:image" content="http://imglf1.ph.126.net/CUXpZOXiAVZmWHmncYqUFQ==/6619199637188407630.gif">
+<meta property="og:image" content="http://imglf2.ph.126.net/jhAO8-NAgx7otgzNzhSSnw==/3664522721896593020.gif">
+<meta property="og:updated_time" content="2017-09-04T15:36:40.360Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hello Webots">
+<meta name="twitter:description" content="构建世界                                                                                             img              在视图菜单下的 最后一项 显示灯光位置 这点和说明书不匹配">
+<meta name="twitter:image" content="http://imglf2.ph.126.net/URmDbvUv08D_EN5bILk1uQ==/6608768570376055382.jpg">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/images/github.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Zhenqiang Ying</h5>
+          <a href="mailto:zqying@pku.edu.cn" title="zqying@pku.edu.cn" class="mail">zqying@pku.edu.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/baidut" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Projects"  >
+                <i class="icon icon-lg icon-folder-open"></i>
+                Projects
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Publications"  >
+                <i class="icon icon-lg icon-book"></i>
+                Publications
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Hello Webots</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Hello Webots</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2014-08-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2014-08-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Programming/">Programming</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#构建世界"><span class="post-toc-text">构建世界</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编程控制"><span class="post-toc-text">编程控制</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#接触面"><span class="post-toc-text">接触面</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#机器人构建"><span class="post-toc-text">机器人构建</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-hello-webots"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Hello Webots</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2014-08-26 00:00:00" datetime="2014-08-25T16:00:00.000Z"  itemprop="datePublished">2014-08-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Programming/">Programming</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="构建世界"><a href="#构建世界" class="headerlink" title="构建世界"></a>构建世界</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/URmDbvUv08D_EN5bILk1uQ==/6608768570376055382.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>在视图菜单下的 最后一项 显示灯光位置 这点和说明书不匹配</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf1.ph.126.net/EqdbV-fECTJ62rEIZFowEw==/6619454723886048793.png" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>改变外观属性</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf1.ph.126.net/E4u57CptYrC497c3LXYQew==/6608549767562127856.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>添加一个放在地面上的物体，如果添加物理属性需要设置边界模型，否则就掉下去了。。。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf1.ph.126.net/Ahwu_baYl9YsH7bv0WdiCA==/6608945591748130369.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>按照例程添加墙</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf1.ph.126.net/GrmSyffC2FazwYpnUI3kWw==/6608581653399331426.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>添加机器人，差动轮模型加上仅用于显示的外观</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/egi0BhGgNd-RADLeyQmVtQ==/6619334877118620005.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>处理碰撞时其实是以一个box来处理，而不是按照曲面处理的</p>
+<p>摆弄一个下午Webots的成果，整理一下。</p>
+<h1 id="编程控制"><a href="#编程控制" class="headerlink" title="编程控制"></a>编程控制</h1><p>空的模板 void.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * File:         </div><div class="line"> * Date:         </div><div class="line"> * Description:  </div><div class="line"> * Author:       </div><div class="line"> * Modifications:</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * You may need to add include files like &lt;webots/distance_sensor.h&gt; or</div><div class="line"> * &lt;webots/differential_wheels.h&gt;, etc.</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;webots/robot.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * You may want to add defines macro here.</div><div class="line"> */</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TIME_STEP 64</span></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * You should put some helper functions here</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * This is the main program.</div><div class="line"> * The arguments of the main function can be specified by the</div><div class="line"> * "controllerArgs" field of the Robot node</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">  <span class="comment">/* necessary to initialize webots stuff */</span></div><div class="line">  wb_robot_init();</div><div class="line">  </div><div class="line">  <span class="comment">/*</span></div><div class="line">   * You should declare here DeviceTag variables for storing</div><div class="line">   * robot devices like this:</div><div class="line">   *  WbDeviceTag my_sensor = wb_robot_get_device("my_sensor");</div><div class="line">   *  WbDeviceTag my_actuator = wb_robot_get_device("my_actuator");</div><div class="line">   */</div><div class="line">  </div><div class="line">  <span class="comment">/* main loop */</span></div><div class="line">  <span class="keyword">do</span> &#123;</div><div class="line">    </div><div class="line">    <span class="comment">/* </span></div><div class="line">     * Read the sensors :</div><div class="line">     * Enter here functions to read sensor data, like:</div><div class="line">     *  double val = wb_distance_sensor_get_value(my_sensor);</div><div class="line">     */</div><div class="line">    </div><div class="line">    <span class="comment">/* Process sensor data here */</span></div><div class="line">    </div><div class="line">    <span class="comment">/*</span></div><div class="line">     * Enter here functions to send actuator commands, like:</div><div class="line">     * wb_differential_wheels_set_speed(100.0,100.0);</div><div class="line">     */</div><div class="line">    </div><div class="line">    <span class="comment">/* </span></div><div class="line">     * Perform a simulation step of 64 milliseconds</div><div class="line">     * and leave the loop when the simulation is over</div><div class="line">     */</div><div class="line">  &#125; <span class="keyword">while</span> (wb_robot_step(TIME_STEP) != <span class="number">-1</span>);</div><div class="line">  </div><div class="line">  <span class="comment">/* Enter here exit cleanup code */</span></div><div class="line">  </div><div class="line">  <span class="comment">/* Necessary to cleanup webots stuff */</span></div><div class="line">  wb_robot_cleanup();</div><div class="line">  </div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>直接修改例程 hexapod.c</p>
+<p>hexapod例程源码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * File:         hexapod.c</div><div class="line"> * Date:         September 22th, 2005</div><div class="line"> * Description:  Alternate tripod gait using linear servos</div><div class="line"> * Author:       Yvan Bourquin</div><div class="line"> * Modifications:Simon Blanchoud - September 12th, 2006</div><div class="line"> *               Indentation of the code so that it follows the Webots Coding</div><div class="line"> *               Standards</div><div class="line"> *</div><div class="line"> * Copyright (c) 2006 Cyberbotics - www.cyberbotics.com</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;webots/robot.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;webots/servo.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TIME_STEP 16</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM_SERVOS 12</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM_STATES 6</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> FRONT +0.7</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> BACK  -0.7</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> HI    +0.02</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> LO    -0.02</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *SERVO_NAMES[NUM_SERVOS] = &#123;</div><div class="line">        <span class="string">"hip_servo_r0"</span>,</div><div class="line">        <span class="string">"hip_servo_r1"</span>,</div><div class="line">        <span class="string">"hip_servo_r2"</span>,</div><div class="line">        <span class="string">"hip_servo_l0"</span>,</div><div class="line">        <span class="string">"hip_servo_l1"</span>,</div><div class="line">        <span class="string">"hip_servo_l2"</span>,</div><div class="line">        <span class="string">"knee_servo_r0"</span>,</div><div class="line">        <span class="string">"knee_servo_r1"</span>,</div><div class="line">        <span class="string">"knee_servo_r2"</span>,</div><div class="line">        <span class="string">"knee_servo_l0"</span>,</div><div class="line">        <span class="string">"knee_servo_l1"</span>,</div><div class="line">        <span class="string">"knee_servo_l2"</span>&#125;;</div><div class="line">  WbDeviceTag servos[NUM_SERVOS];</div><div class="line">  <span class="keyword">const</span> <span class="keyword">double</span> pos[NUM_STATES][NUM_SERVOS] = &#123;</div><div class="line">        &#123;BACK, FRONT, BACK, -FRONT, -BACK, -FRONT, LO, HI, LO, HI, LO, HI&#125;,</div><div class="line">        &#123;BACK, FRONT, BACK, -FRONT, -BACK, -FRONT, HI, HI, HI, HI, HI, HI&#125;,</div><div class="line">        &#123;BACK, FRONT, BACK, -FRONT, -BACK, -FRONT, HI, LO, HI, LO, HI, LO&#125;,</div><div class="line">        &#123;FRONT, BACK, FRONT, -BACK, -FRONT, -BACK, HI, LO, HI, LO, HI, LO&#125;,</div><div class="line">        &#123;FRONT, BACK, FRONT, -BACK, -FRONT, -BACK, HI, HI, HI, HI, HI, HI&#125;,</div><div class="line">        &#123;FRONT, BACK, FRONT, -BACK, -FRONT, -BACK, LO, HI, LO, HI, LO, HI&#125;</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">int</span> elapsed = <span class="number">0</span>;</div><div class="line">  <span class="keyword">int</span> state, i;</div><div class="line">  </div><div class="line">  wb_robot_init();</div><div class="line"></div><div class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUM_SERVOS; i++) &#123;</div><div class="line">    servos[i] = wb_robot_get_device(SERVO_NAMES[i]);</div><div class="line">    <span class="keyword">if</span> (!servos[i]) &#123;</div><div class="line">      <span class="built_in">printf</span>(<span class="string">"could not find servo: %s\n"</span>,SERVO_NAMES[i]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">while</span>(wb_robot_step(TIME_STEP)!=<span class="number">-1</span>) &#123;</div><div class="line">    elapsed++;</div><div class="line">    state = (elapsed / <span class="number">25</span> + <span class="number">1</span>) % NUM_STATES;</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; NUM_SERVOS; i++) &#123;</div><div class="line">      wb_servo_set_position(servos[i], pos[state][i]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  wb_robot_cleanup();</div><div class="line"></div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf0.ph.126.net/Gu5bj1zPaPkwhkArtOw0Og==/3763320438721720032.gif" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>修改电机旋转方向</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf0.ph.126.net/n4OfbU-Lst5k_OT169UF6A==/6608933497120222635.gif" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>去掉步态数组的负号 原地转</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/QezywXALqQNUGLoVd-mwLw==/6608724589910944685.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>受设定的舵机范围限制，只能转到极限角度</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/iN2vf8eAtnb8Ro5EYL5TEQ==/2082070402828926179.gif" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>控制周期内来不及调整的话，就会一直打转</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/YCKyq5ZIncDsO8Iv4KniGw==/2266999462528387055.gif" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>改成电机的 原地打转 不需要伸缩足了</p>
+<p>先在例子上直接修改，了解一下后续流程。将hexapod例程中的舵机的旋转方向修改一下，就可以行走了！</p>
+<p>注意没有伸缩腿是走不动的，前后力量抵消，原地运动。</p>
+<p>对步态数组进行简单修改试试，去掉里面的负号，得到原地打转的效果。</p>
+<p>下面把舵机换成电机，需要取消对打角最大最小值的限定。</p>
+<p>查阅了一下手册，</p>
+<blockquote>
+<p>When both minPosition and maxPosition are zero (the default), the soft limits are deactivated</p>
+</blockquote>
+<p>都设置为0的时候就没有限制了！好了，下面可以试试电机的效果了，注意转角的范围是负无穷到正无穷。控制的话就是每次增加一定的转角值就行了。注意还要调整一下控制周期，如果在控制周期内来不及调整的话，就会一直打转（都以最大力量向前摆动）。</p>
+<p>servo作为电机使用的旋转写法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> *SERVO_NAME = <span class="string">"servo"</span>;</div><div class="line">WbDeviceTag servo;</div><div class="line"></div><div class="line">servo = wb_robot_get_device(SERVO_NAME);</div><div class="line"><span class="keyword">if</span> (!servo) &#123;</div><div class="line">  <span class="built_in">printf</span>(<span class="string">"could not find servo: %s\n"</span>,servo);</div><div class="line">&#125;</div><div class="line"></div><div class="line">wb_servo_set_position(servo, INFINITY);</div><div class="line">wb_servo_set_velocity(servo, <span class="number">6.28</span>); <span class="comment">// 1 rotation per second</span></div></pre></td></tr></table></figure>
+<h1 id="接触面"><a href="#接触面" class="headerlink" title="接触面"></a>接触面</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/bHtuBqGRSG8dF5q6rC1IaA==/6619390952211639929.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>狗与地面接触的部分使用圆球模拟的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf1.ph.126.net/YSsYAId_8DhSes-Om8lp4A==/6619418440002333202.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>一个接触面</p>
+<p><strong>关于构造自定义边界物体的问题</strong></p>
+<p>边界物体是仿真的重点，外观做多么华丽都对物理仿真没什么区别，只是看着不同罢了。</p>
+<p>不是所有的形状都可以作为边界物体的：</p>
+<p>采用USE使用一个形状时，出现问题：</p>
+<blockquote>
+<p>DEF LEG Robot (name=’solid’): boundingObject: ignoring illegal Extrusion node in the geometry field of a Shape node</p>
+<p>Failed to create geometry for a Extrusion object</p>
+</blockquote>
+<p>测试了一下默认的Extrusion形状能否构建边界物体，结果失败了， 还是上面的提示，于是找官网说明，在<a href="http://www.cyberbotics.com/guide/section7.6.php" target="_blank" rel="external">官网说明</a><a href="http://www.cyberbotics.com/guide/section7.6.php" target="_blank" rel="external">书</a>第七节中，介绍了如何选择边界对象的问题，引用原文如下：</p>
+<blockquote>
+<p><strong>7.6.5 How to choose bounding Objects?</strong></p>
+<p>As said before, minimizing the number of bounding objects increases the simulation speed. However choosing the bounding objects primitives carefully is also crucial to increase the simulation speed.</p>
+<p>Using a combination of Sphere, Box, Capsule and Cylinder nodes for defining objects is very efficient. Generally speaking, the efficiency of these primitives can be sorted like this: Sphere &gt; Box &gt; Capsule &gt; Cylinder. Where the Sphere is the most efficient. But this can be neglected for a common usage.</p>
+<p>The IndexdedFaceSet geometry primitive can also be used in a bounding object. But this primitive is <strong>less efficient</strong>than the other primitives listed above. Moreover its behavior is <strong>sometimes buggy</strong>. For this reasons, we don’t recommend using the IndexdedFaceSet when another solution using a combination of the other primitives is possible.</p>
+<p>Grounds can be defined using the Plane or the ElevationGrid primitives. The Plane node is much more efficient than the ElevationGrid node, but it can only be used to model a flat terrain while the ElevationGrid can be used to model an uneven terrain.</p>
+</blockquote>
+<p>因此选择球形最利于仿真，从软件自带手册的关于形状的一节可以看出，对于特殊的形状，要么用支持的简单形状组合，要么可以用 IndexdedFaceSet 绘制。</p>
+<p>而IndexdedFaceSet 的绘制是非常麻烦的，大概需要通过每一个构成面的各个顶点以及顶点索引序列声明各个构成面，还要通过构成边索引和边的二维坐标值声明构成边，简直要吐血。而且还有问题：</p>
+<blockquote>
+<p>More than 3 vertices defined for a face in IndexedFaceSet, can’t create boundingObject</p>
+</blockquote>
+<p>一张面必须是3个点构成的，否则不能构造碰撞物体。</p>
+<p>再加上前面说明的低效率<strong>less efficient</strong> 和可能出错<strong>sometimes buggy，</strong>还是选择组合的方式吧。</p>
+<h1 id="机器人构建"><a href="#机器人构建" class="headerlink" title="机器人构建"></a>机器人构建</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/LSTZsI5bGAc-SHKllmIe1A==/2671479004061349884.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/sTOZMOGKvsfWjwOgEqr5eA==/6608178132633050354.jpg" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>robot结构树</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf1.ph.126.net/CUXpZOXiAVZmWHmncYqUFQ==/6619199637188407630.gif" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>让我们从前面的机器人身上碾压过去 哈哈</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://imglf2.ph.126.net/jhAO8-NAgx7otgzNzhSSnw==/3664522721896593020.gif" alt="img" title="">
+                </div>
+                <div class="image-caption">img</div>
+            </figure>
+<p>步态慢动作</p>
+<p>先创建一个身体，solid完成可以转换为robot（闪电工具）</p>
+<p>添加上电机，场景结构树设计可参考狗机器人的结构树。</p>
+<p>创建好了后输出（场景树上方按钮），就可以带上机器人到各种世界逛逛了。。。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-09-04T15:36:40.360Z" itemprop="dateUpdated">2017-09-04 23:36:40</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://baidut.github.io">
+            <img src="/images/github.png" alt="Zhenqiang Ying">
+            Zhenqiang Ying
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/robot/">robot</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2014/08/26/hello-webots/&title=《Hello Webots》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2014/08/26/hello-webots/&title=《Hello Webots》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2014/08/26/hello-webots/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello Webots》 — BitBlog&url=https://baidut.github.io/2014/08/26/hello-webots/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2014/08/26/hello-webots/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2014/12/06/alternate-tripod-gait/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Simulate the alternate tripod gait using Webots</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2014/08/26/hello-rhex/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hello RHEX</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Zhenqiang Ying &copy; 2015 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2014/08/26/hello-webots/&title=《Hello Webots》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2014/08/26/hello-webots/&title=《Hello Webots》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2014/08/26/hello-webots/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Hello Webots》 — BitBlog&url=https://baidut.github.io/2014/08/26/hello-webots/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2014/08/26/hello-webots/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3a0W4DIQwEwP7/T6evldJLd82lUmB4iqIcMFfJxcZfX/F4/BjP3z//5nlcPZWsctvAwMD4WEay/NU3VzO8fioZ7avBwMA4gXEVwV5vehZGk43me8PAwMBoP7cBN58fAwMDI2fki62kwRgYGBizJDbB58fB13t4Yy6OgYHxgYy86v7/n99yv4GBgfFRjEc51pPe9T38sisMDIytGSsp6OukdKUtY5gSY2BgHMZoGy9mDV7tqylOrxgYGBsxZuWwqEy/XIArrksxMDAOY8xauNrX0aaydS0QAwNjI0Z+HGzT1Px6cgbGwMA4h5GUzNrS2KypIklrL/8OGBgYWzPyAlxdph81aswKfxgYGOcwZov9T9JbXE5gYGBszVg5LCZh+h2Fufo/AAYGxgcy8oXbNDJ/atZsgYGBcRqjTT7b9og2Wa3BGBgYBzBmyedKyJ5RL9kYGBhbM9rQmV9DzsJrkhJH9UIMDIytGUkR7ebl42aLP149BgbGAYyklLaSlObHwbw5rCi6YWBgbMHID3Z5M8T6PMNbDgwMjK0Z7fHutmLZ6FoUAwPjBMajHHnJ7K7jZtR2hoGBsTXjrpjdXhK0Vwuz4yYGBsZOjLwlok042+aMpfkxMDAOYOTNFkkhbHYAnYV+DAwMjDZQJt+8JWRjYGBglAlqu60b1sLAwDiA0RbU7mqhmIVXDAyM0xh56pgf+NbnTObHwMA4gPENSXQi4FIHkN0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'I'm here';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Thanks for visiting';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

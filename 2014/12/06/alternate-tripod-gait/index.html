@@ -19,9 +19,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="robot">
+    <meta name="keywords" content="robot,C">
     <meta name="description" content="本文介绍三脚架对换式步态 （alternate tripod gait）的实现 1234┌───────────┐          ^ right│ 0   1   2 │          │ │ 3   4   5 │ front &amp;lt;──┘└───────────┘ 一侧的前后两足和另一侧的中间足构成一个三脚架，每一时刻有一个三脚架处于支撑相，另一个三脚架出于摆动相，每隔半个周期进行切">
-<meta name="keywords" content="robot">
+<meta name="keywords" content="robot,C">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Simulate the alternate tripod gait using Webots">
 <meta property="og:url" content="https://baidut.github.io/2014/12/06/alternate-tripod-gait/index.html">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/initState.png">
 <meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/gait_forward.gif">
 <meta property="og:image" content="https://github.com/baidut/rhexapod/wiki/images/gait_turnLeft.gif">
-<meta property="og:updated_time" content="2017-09-04T15:25:08.368Z">
+<meta property="og:updated_time" content="2017-09-04T15:36:30.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Simulate the alternate tripod gait using Webots">
 <meta name="twitter:description" content="本文介绍三脚架对换式步态 （alternate tripod gait）的实现 1234┌───────────┐          ^ right│ 0   1   2 │          │ │ 3   4   5 │ front &amp;lt;──┘└───────────┘ 一侧的前后两足和另一侧的中间足构成一个三脚架，每一时刻有一个三脚架处于支撑相，另一个三脚架出于摆动相，每隔半个周期进行切">
@@ -237,7 +237,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2017-09-04T15:25:08.368Z" itemprop="dateUpdated">2017-09-04 23:25:08</time>
+    Last updated: <time datetime="2017-09-04T15:36:30.306Z" itemprop="dateUpdated">2017-09-04 23:36:30</time>
 </span><br>
 
 
@@ -256,7 +256,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/robot/">robot</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/robot/">robot</a></li></ul>
 
 
             
@@ -314,18 +314,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2015/01/31/JPEGParser/" id="post-prev" class="post-nav-link">
+      <a href="/2014/12/06/rhexapod/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">JPEGHexViewer</h4>
+        <h4 class="title">Build a six-legged robot (RHEX)</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2014/12/06/rhexapod/" id="post-next" class="post-nav-link">
+      <a href="/2014/08/26/hello-webots/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Build a six-legged robot (RHEX)</h4>
+        <h4 class="title">Hello Webots</h4>
       </a>
     </div>
   
@@ -463,6 +463,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 <script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 

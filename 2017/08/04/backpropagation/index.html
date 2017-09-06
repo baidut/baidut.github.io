@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Backpropagation | BitBlog | 1 Bit = 1.1102e-16 Pebibyte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="deep learning">
+    <meta name="description" content="还是先画关系图  解法一：局部到全体 解法二：反向递推  神经元间到神经元内：由于网络结构以神经元为单位，以 z 代表一个神经元求，先省略 w,b 神经元间解法一：局部到全体 (分子布局)先求解各个边，再找路径，路径上相乘，路径间相加。 输出层到损失函数$$\frac{ \partial C}{\partial z_i^{(L)}} = \frac{ \partial C}{\partial a_">
+<meta name="keywords" content="deep learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backpropagation">
+<meta property="og:url" content="https://baidut.github.io/2017/08/04/backpropagation/index.html">
+<meta property="og:site_name" content="BitBlog">
+<meta property="og:description" content="还是先画关系图  解法一：局部到全体 解法二：反向递推  神经元间到神经元内：由于网络结构以神经元为单位，以 z 代表一个神经元求，先省略 w,b 神经元间解法一：局部到全体 (分子布局)先求解各个边，再找路径，路径上相乘，路径间相加。 输出层到损失函数$$\frac{ \partial C}{\partial z_i^{(L)}} = \frac{ \partial C}{\partial a_">
+<meta property="og:updated_time" content="2017-09-05T15:18:13.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Backpropagation">
+<meta name="twitter:description" content="还是先画关系图  解法一：局部到全体 解法二：反向递推  神经元间到神经元内：由于网络结构以神经元为单位，以 z 代表一个神经元求，先省略 w,b 神经元间解法一：局部到全体 (分子布局)先求解各个边，再找路径，路径上相乘，路径间相加。 输出层到损失函数$$\frac{ \partial C}{\partial z_i^{(L)}} = \frac{ \partial C}{\partial a_">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/images/github.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Zhenqiang Ying</h5>
+          <a href="mailto:zqying@pku.edu.cn" title="zqying@pku.edu.cn" class="mail">zqying@pku.edu.cn</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/baidut" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Projects"  >
+                <i class="icon icon-lg icon-folder-open"></i>
+                Projects
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories/Publications"  >
+                <i class="icon icon-lg icon-book"></i>
+                Publications
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Backpropagation</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Backpropagation</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-04T06:56:27.000Z" itemprop="datePublished" class="page-time">
+  2017-08-04
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/lecture/">lecture</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#神经元间"><span class="post-toc-text">神经元间</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解法一：局部到全体-分子布局"><span class="post-toc-text">解法一：局部到全体 (分子布局)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#输出层到损失函数"><span class="post-toc-text">输出层到损失函数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#相邻层"><span class="post-toc-text">相邻层</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#路径"><span class="post-toc-text">路径</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解法二：反向递推-分母布局"><span class="post-toc-text">解法二：反向递推 (分母布局)</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#递推首项-delta-i-L"><span class="post-toc-text">递推首项 $\delta_i^{(L)} $</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#递推公式-delta-i-l-与-delta-i-l-1"><span class="post-toc-text">递推公式 $\delta_i^{(l)}$与 $\delta_i^{(l+1)} $</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#神经元内"><span class="post-toc-text">神经元内</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#梯度消失和梯度爆炸"><span class="post-toc-text">梯度消失和梯度爆炸</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-backpropagation"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Backpropagation</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-08-04 14:56:27" datetime="2017-08-04T06:56:27.000Z"  itemprop="datePublished">2017-08-04</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/lecture/">lecture</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>还是先画关系图</p>
+<ul>
+<li>解法一：局部到全体</li>
+<li>解法二：反向递推</li>
+</ul>
+<p>神经元间到神经元内：由于网络结构以神经元为单位，以 z 代表一个神经元求，先省略 w,b</p>
+<h2 id="神经元间"><a href="#神经元间" class="headerlink" title="神经元间"></a>神经元间</h2><h3 id="解法一：局部到全体-分子布局"><a href="#解法一：局部到全体-分子布局" class="headerlink" title="解法一：局部到全体 (分子布局)"></a>解法一：局部到全体 (分子布局)</h3><p>先求解各个边，再找路径，路径上相乘，路径间相加。</p>
+<h4 id="输出层到损失函数"><a href="#输出层到损失函数" class="headerlink" title="输出层到损失函数"></a>输出层到损失函数</h4><p>$$<br>\frac{ \partial C}{\partial z_i^{(L)}} = \frac{ \partial C}{\partial a_i^{(L)}} \frac{\partial a_i^{(L)}}{ \partial z_i^{(L)}}<br>= \frac{ \partial C}{\partial a_i^{(L)}} f’({  z_i^{(L)}})<br>$$</p>
+<p>分子布局的矩阵形式为(只有 a_i 和 z_i 有关，所以为对角阵)：<br>$$<br>\frac{ \partial C}{\partial \mathbf z^{(L)}} = \frac{ \partial C}{\partial \mathbf a^{(L)}} \frac{\partial \mathbf a^{(L)}}{ \partial \mathbf z^{(L)}}<br>= \frac{ \partial C}{\partial \mathbf a^{(L)}} diag(f’(\mathbf z^{(L)}))<br>$$<br>Hadamard 乘积形式为 (混合布局，维持主体)：<br>$$<br>\frac{ \partial C}{\partial \mathbf z^{(L)}} = C’(\mathbf a^{(L)})  \odot f’(\mathbf z^{(L)})<br>$$</p>
+<h4 id="相邻层"><a href="#相邻层" class="headerlink" title="相邻层"></a>相邻层</h4><p>$$<br>\frac{ \partial z^{(l+1)}_j}{\partial z_i^{(l)}} = \frac{ \partial z^{(l+1)}_j}{\partial a_i^{(l)}} \frac{\partial a_i^{(l)}}{ \partial z<em>i^{(l)}}<br>= w^{(l+1)}</em>{j←i} f’({  z_i^{(l)}})<br>$$</p>
+<p>矩阵形式：$w^{(l+1)}<em>{j←i}$ 合并成 $\mathbf W^{(l+1)} $ 矩阵的元素，l+1行，l列，矩阵每一行都是一个权值向量，$w^{(l+1)}</em>{j←i} = w^{(l+1)}_{ji} $<br>$$<br>\frac{ \partial \mathbf z^{(l+1)}}{\partial \mathbf z^{(l)}} = \frac{ \partial \mathbf z^{(l+1)}}{\partial \mathbf a^{(l)}} \frac{\partial \mathbf a^{(l)}}{ \partial \mathbf z^{(l)}}<br>= \mathbf W^{(l+1)} diag(f’(\mathbf z^{(l)}))<br>$$<br>无法写成 Hadamard 乘积形式</p>
+<h4 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h4><p>$$<br>\frac{ \partial C}{\partial z<em>i^{(l)}} = \sum</em>{mnk … pq} \frac{ \partial C}{\partial z_m^{(L)}} \frac{\partial z_m^{(L)}}{ \partial z_n^{(L-1)}}  \frac{\partial z_n^{(L-1)}}{ \partial z_k^{(L-2)}} … \frac{\partial z_p^{(l+1)}}{ \partial z_q^{(l)}}<br>$$</p>
+<p>不好计算，直接看矩阵形式：<br>$$<br>\begin{align}<br>\frac{ \partial C}{\partial \mathbf z^{(l)}}<br>=&amp; \frac{ \partial C}{\partial \mathbf z^{(L)}} \frac{\partial \mathbf z^{(L)}}{ \partial \mathbf z^{(L-1)}}  \frac{\partial \mathbf z^{(L-1)}}{ \partial \mathbf z^{(L-2)}} … \frac{\partial \mathbf z^{(l+1)}}{ \partial \mathbf z^{(l)}}<br>\<br>=&amp;<br>\frac{ \partial C}{\partial \mathbf a^{(L)}} diag(f’(\mathbf z^{(L)}))<br>\mathbf W^{(L)} diag(f’(\mathbf z^{(L-1)}))<br>\mathbf W^{(L-1)} diag(f’(\mathbf z^{(L-2)}))<br>… \<br>&amp; \mathbf W^{(l+1)} diag(f’(\mathbf z^{(l)}))<br>\end{align}<br>$$<br>Hadamard 乘积形式：<br>$$<br>\begin{align}<br>\frac{ \partial C}{\partial \mathbf z^{(l)}}<br>=&amp; \frac{ \partial C}{\partial \mathbf z^{(L)}} \frac{\partial \mathbf z^{(L)}}{ \partial \mathbf z^{(L-1)}}  \frac{\partial \mathbf z^{(L-1)}}{ \partial \mathbf z^{(L-2)}} … \frac{\partial \mathbf z^{(l+1)}}{ \partial \mathbf z^{(l)}}<br>\<br>=&amp;<br> C’(\mathbf a^{(L)})  \odot f’(\mathbf z^{(L)})<br>\mathbf W^{(L)} \odot f’(\mathbf z^{(L-1)})<br>\mathbf W^{(L-1)} \odot f’(\mathbf z^{(L-2)})<br>… \<br>&amp; \mathbf W^{(l+1)} \odot f’(\mathbf z^{(l)})<br>\end{align}<br>$$<br>递推关系:<br>$$<br>\begin{align}<br>\frac{ \partial C}{\partial \mathbf z^{(l)}}<br>=&amp; \frac{ \partial C}{\partial \mathbf z^{(l+1)}} \frac{\partial \mathbf z^{(l+1)}}{ \partial \mathbf z^{(l)}}<br>\<br>=&amp;<br>\frac{ \partial C}{\partial \mathbf z^{(l)}}  \mathbf W^{(l+1)} diag(f’(\mathbf z^{(l)}))<br>\end{align}<br>$$</p>
+<h3 id="解法二：反向递推-分母布局"><a href="#解法二：反向递推-分母布局" class="headerlink" title="解法二：反向递推 (分母布局)"></a>解法二：反向递推 (分母布局)</h3><p>定义<br>$$<br>\delta_i^{(l)} =  \frac{ \partial C}{\partial z_i^{(l)}}<br>$$<br>列向量<br>$$<br>\boldsymbol \delta^{(l)} =  \frac{ \partial C}{\partial \mathbf z^{(l)}}<br>$$</p>
+<h4 id="递推首项-delta-i-L"><a href="#递推首项-delta-i-L" class="headerlink" title="递推首项 $\delta_i^{(L)} $"></a>递推首项 $\delta_i^{(L)} $</h4><p>$$<br>\delta_i^{(L)}  = \frac{\partial a_i^{(L)}}{ \partial z_i^{(L)}}  \frac{ \partial C}{\partial a_i^{(L)}}<br>= f’({  z_i^{(L)}}) \frac{ \partial C}{\partial a_i^{(L)}}<br>$$</p>
+<p>矩阵形式<br>$$<br>\boldsymbol \delta^{(L)} = \frac{\partial \mathbf a^{(L)}}{ \partial \mathbf z^{(L)}}  \frac{ \partial C}{\partial \mathbf a^{(L)}}<br>= diag(f’(\mathbf z^{(L)}))  \frac{ \partial C}{\partial \mathbf a^{(L)}}<br>$$<br>Hadamard 乘积形式：<br>$$<br>\boldsymbol \delta^{(L)} =  f’(\mathbf z^{(L)})  \odot C’(\mathbf a^{(L)})<br>$$</p>
+<h4 id="递推公式-delta-i-l-与-delta-i-l-1"><a href="#递推公式-delta-i-l-与-delta-i-l-1" class="headerlink" title="递推公式 $\delta_i^{(l)}$与 $\delta_i^{(l+1)} $"></a>递推公式 $\delta_i^{(l)}$与 $\delta_i^{(l+1)} $</h4><p>$$<br>\delta_i^{(l)}<br>= \frac{ \partial C}{\partial z_i^{(l)}} = \sum_j \frac{ \partial z_j^{(l+1)}}{\partial z_i^{(l)}} \frac{ \partial C}{\partial z_j^{(l+1)}}<br>= \sum_j \frac{ \partial z_j^{(l+1)}}{\partial z_i^{(l)}} \delta_j^{(l+1)}<br>$$</p>
+<p>$$<br>\delta_i^{(l)}  = \sum_j f’({  z<em>i^{(l)}}) w^{(l+1)}</em>{j←i}   \delta_j^{(l+1)}<br>$$<br>矩阵形式：<br>$$<br>\boldsymbol \delta^{(l)}  =<br>diag(f’(\mathbf z^{(L)}))  (\mathbf W^{(l+1)})^T   \boldsymbol \delta^{(l+1)}<br>$$<br>展开后和前面的结果只差一个转置的关系。</p>
+<p>Hadamard 乘积形式：<br>$$<br>\boldsymbol \delta^{(l)}  = f’({  \mathbf z^{(l)}})  \odot ((\mathbf W^{(l+1)} )^T  \boldsymbol \delta^{(l+1)} )<br>$$<br>可以看出递推的写法更简洁。</p>
+<h2 id="神经元内"><a href="#神经元内" class="headerlink" title="神经元内"></a>神经元内</h2><p>下面看 w 和 b<br>$$<br>\begin{align}<br>a^{(l)}_i &amp;= f ( z^{(l)}_i ) \<br>z^{(l)}<em>i  &amp;= \sum</em>{j}     w^{(l)}_{ i ←j} \times a^{(l-1)}_j + b^{(l)}<em>i<br>\end{align}<br>$$<br>偏导：<br>$$<br>\begin{align}<br>\frac{ \partial C}{\partial w</em>{ij}^{(l)}}  &amp;= \delta_i^{(L)}  {a_j}^{(l-1)}\<br>\frac{ \partial C}{\partial b_i^{(l)}} &amp; = \delta_i^{(L)}<br>\end{align}<br>$$</p>
+<p>矩阵形式 $\mathbf{w}^{(l)}<em>i :1 \times N</em>{l-1}$，$\mathbf{W}^{(l)}:N<em>l \times N</em>{l-1}$：<br>$$<br>z^{(l)}_i = \mathbf{w}^{(l)}_i \mathbf{a}^{(l-1)}  +   {b}^{(l)}_i, \<br>\mathbf{z}^{(l)}  =    \mathbf{W}^{(l)} \mathbf{a}^{(l-1)}  +   \mathbf{b}^{(l)},<br>$$<br>偏导(分子布局)：<br>$$<br>\begin{align}<br>\frac{ \partial \mathbf z^{(l)}}{\partial \mathbf a^{(l-1)}} &amp; =  \mathbf{W}^{(l)}\<br>\frac{ \partial \mathbf z^{(l)}}{\partial \mathbf W^{(l)}} &amp; =  (\mathbf{a}^{(l-1)})^T\<br>\frac{ \partial \mathbf z^{(l)}}{\partial \mathbf b^{(l)}} &amp; =  \mathbf I^{(l\times l)}\<br>\end{align}<br>$$<br>结论 递推式：<br>$$<br>\begin{align}<br>\frac{ \partial C}{\partial \mathbf W^{(l)}} &amp; = \boldsymbol \delta^{(l)}  (\mathbf{a}^{(l-1)})^T\<br>\frac{ \partial C}{\partial \mathbf b^{(l)}} &amp; = \boldsymbol \delta^{(l)}<br>\end{align}<br>$$</p>
+<h2 id="梯度消失和梯度爆炸"><a href="#梯度消失和梯度爆炸" class="headerlink" title="梯度消失和梯度爆炸"></a>梯度消失和梯度爆炸</h2><p>下一讲，程序实现。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2017-09-05T15:18:13.073Z" itemprop="dateUpdated">2017-09-05 23:18:13</time>
+</span><br>
+
+
+        
+    </div>
+    <footer>
+        <a href="https://baidut.github.io">
+            <img src="/images/github.png" alt="Zhenqiang Ying">
+            Zhenqiang Ying
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/deep-learning/">deep learning</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2017/08/04/backpropagation/&title=《Backpropagation》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2017/08/04/backpropagation/&title=《Backpropagation》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2017/08/04/backpropagation/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Backpropagation》 — BitBlog&url=https://baidut.github.io/2017/08/04/backpropagation/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2017/08/04/backpropagation/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/22/caip2017deshadow/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">A New Shadow Removal Method using Color-Lines</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/03/05/icassp2017orgb/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ORGB：Offset correction in RGB Color Space for Illumination-Robust Image Processing</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Zhenqiang Ying &copy; 2015 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://baidut.github.io/2017/08/04/backpropagation/&title=《Backpropagation》 — BitBlog&pic=https://baidut.github.io/images/github.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://baidut.github.io/2017/08/04/backpropagation/&title=《Backpropagation》 — BitBlog&source=Stay Hungry,Stay Foolish" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://baidut.github.io/2017/08/04/backpropagation/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Backpropagation》 — BitBlog&url=https://baidut.github.io/2017/08/04/backpropagation/&via=https://baidut.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://baidut.github.io/2017/08/04/backpropagation/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3aQW7DMAwF0dz/0i5QdFMEUeeTTgpR41UQ17GeFixF8vHA1/V9PX+z/v757qtfW//mbZcMGTK2ZVzL6/nF69fwZ9cbwdcmQ4aMcxjrsMh55G5/y2TIkCGDBMr0lbWly5AhQ0Yt4JLDKl/6v/3fkCFDxoYM/so0EezXx24+i8uQIWNDRtoY+OTnN/Y3ZMiQsQnjCi+eJqalt9p6fp6VIUPGaMZ6kIKPXKwXwUc00mZDsDgZMmRszkiTtk4pLS3qxcmiDBkyxjF4gazT5uSwtEgnQ4aMcxjFQ2OYMpIqWZqAypAh4wRGmiymbct0wKI4ZiFDhozRjE4w5clfmuqRzfr1WYYMGaMZ/FDKQzBfaC3UovfKkCFjEINki7XDba2Qx8twMmTIOI3BG4ckjasNc7SGMGTIkDGaQTJH3nTsJIidLZAhQ8ZsRpq0dQIrHyCL1yNDhoxjGLWfrh16a0MVL9cjQ4aMAxhplpUOXqTtyXgTZciQMZrBgyYfm+hMotXKcDJkyJjN6DQmeTOyVrwrlttkyJAxlEEGHTqH3s5AGPp7GTJkjGakCVx6KH1HO1OGDBmnMa7wSscs0mIcvytDhoxzGHcVwtLBstpCa2FahgwZMxidwQjegOQlPB7KZciQcRqDF9rSEExaAmnQ/6M9IEOGjIMZ/KlOE/SGRqYMGTKOZ3TakzzFTNuoMmTIOIHBE7tOsT7djuBwK0OGjNGMWmOAHE15wE2PzUWMDBky9mN8AR+BN/WcOaBwAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'I'm here';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Thanks for visiting';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

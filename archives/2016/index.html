@@ -204,14 +204,14 @@
 
     
             </div> 
-            <h3 class="archive-separator">August, 2016</h3>
+            <h3 class="archive-separator">October, 2016</h3>
             <div class="waterfall">
     
 
         <div class="waterfall-item">
   <article class="article-card archive-article">
     <div class="post-meta">
-      <time class="post-time" title="2016-08-22 00:00:00" datetime="2016-08-21T16:00:00.000Z"  itemprop="datePublished">2016-08-22</time>
+      <time class="post-time" title="2016-10-01 00:00:00" datetime="2016-09-30T16:00:00.000Z"  itemprop="datePublished">2016-10-01</time>
 
       
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Publications/">Publications</a></li></ul>
@@ -224,7 +224,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2016/08/22/mm2016/">A Novel Shadow-Free Feature Extractor for Real-Time Road Detection</a>
+      <a class="post-title-link" href="/2016/10/01/mm2016/">A Novel Shadow-Free Feature Extractor for Real-Time Road Detection</a>
     </h3>
   
 
@@ -393,6 +393,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 <script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 

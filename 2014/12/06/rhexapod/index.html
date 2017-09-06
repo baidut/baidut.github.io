@@ -20,17 +20,17 @@
     
     
     <meta name="keywords" content="C++">
-    <meta name="description" content="We built an RHEX (a six-legged robot inspired by hexapod cockroach). I put some notes taken when building our robot here just for helping me rewind the memory. First, let’s watch a video to know this">
+    <meta name="description" content="We built an RHEX (a six-legged robot inspired by hexapod cockroach). Let’s watch a video to know this interesting robot!     I put some notes taken when building our robot here just for helping me rew">
 <meta name="keywords" content="C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Build a six-legged robot (RHEX)">
 <meta property="og:url" content="https://baidut.github.io/2014/12/06/rhexapod/index.html">
 <meta property="og:site_name" content="BitBlog">
-<meta property="og:description" content="We built an RHEX (a six-legged robot inspired by hexapod cockroach). I put some notes taken when building our robot here just for helping me rewind the memory. First, let’s watch a video to know this">
-<meta property="og:updated_time" content="2017-09-04T15:07:08.746Z">
+<meta property="og:description" content="We built an RHEX (a six-legged robot inspired by hexapod cockroach). Let’s watch a video to know this interesting robot!     I put some notes taken when building our robot here just for helping me rew">
+<meta property="og:updated_time" content="2017-09-05T07:35:07.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Build a six-legged robot (RHEX)">
-<meta name="twitter:description" content="We built an RHEX (a six-legged robot inspired by hexapod cockroach). I put some notes taken when building our robot here just for helping me rewind the memory. First, let’s watch a video to know this">
+<meta name="twitter:description" content="We built an RHEX (a six-legged robot inspired by hexapod cockroach). Let’s watch a video to know this interesting robot!     I put some notes taken when building our robot here just for helping me rew">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -176,9 +176,18 @@
     <article class="page-article fade" itemprop="blogPage">
         <div class="post-content page-content" id="page-content" itemprop="pageContent">
             <p>We built an RHEX (a six-legged robot inspired by hexapod cockroach).</p>
+<p>Let’s watch a video to know this interesting robot!</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ntlI-pDUxPE" frameborder="0" allowfullscreen></iframe>
+
+
+
 <p>I put some notes taken when building our robot here just for helping me rewind the memory.</p>
-<p>First, let’s watch a video to know this interesting robot!</p>
-<h1 id="Physical-simulation"><a href="#Physical-simulation" class="headerlink" title="Physical simulation"></a>Physical simulation</h1><p>Alternate tripod gait</p>
+<p>Related Posts:</p>
+<ul>
+<li><a href="/2014/08/26/hello-rhex/">Hello RHEX</a></li>
+<li><a href="/2014/08/26/hello-webots/">Hello Webots</a></li>
+<li><a href="/2014/12/06/alternate-tripod-gait/">Simulate the alternate tripod gait using Webots</a></li>
+</ul>
 
         </div>
 
@@ -374,6 +383,27 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 <script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
