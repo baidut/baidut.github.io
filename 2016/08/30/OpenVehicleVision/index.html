@@ -38,12 +38,17 @@ ga('send', 'pageview');
 <meta property="og:site_name" content="BitBlog">
 <meta property="og:description" content="I’ve been working on Autonomous Driving vision algorithms for one year, and here’s one demo of my project:   Some related publications:  A Novel Shadow-Free Feature Extractor for Real-Time Road Detect">
 <meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34967561-bfd61b4e-fa9e-11e7-9f07-a3f7df65ffbb.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34967598-01201528-fa9f-11e7-9aae-218ea00946d4.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969032-b925ca5c-faa7-11e7-8c29-6b194da1ad03.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969199-94487710-faa8-11e7-8ed2-c04e8a09f4ae.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969615-99daeca6-faaa-11e7-9d14-a5ae8f9579d7.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969623-a079b326-faaa-11e7-9e08-d535e270e066.png">
-<meta property="og:updated_time" content="2018-01-16T03:16:53.899Z">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/segmentation.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/saturation_weak.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/saturation_strong.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/s_s2_weak.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/s_s2_strong.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/view_log.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/view_2d.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/1516101527065.png">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/comparison.jpg">
+<meta property="og:image" content="https://baidut.github.io/images/OpenVehicleVision/more-comp.jpg">
+<meta property="og:updated_time" content="2018-01-16T11:42:29.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenVehicleVision">
 <meta name="twitter:description" content="I’ve been working on Autonomous Driving vision algorithms for one year, and here’s one demo of my project:   Some related publications:  A Novel Shadow-Free Feature Extractor for Real-Time Road Detect">
@@ -159,7 +164,7 @@ ga('send', 'pageview');
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Technical-Details"><span class="post-toc-text">Technical Details</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Illumination-Robust-Feature"><span class="post-toc-text">Illumination Robust Feature</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Illumination-Invariant-Feature"><span class="post-toc-text">Illumination Invariant Feature</span></a></li></ol></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Technical-Details"><span class="post-toc-text">Technical Details</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Illumination-Robust-Feature"><span class="post-toc-text">Illumination Robust Feature</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Saturation"><span class="post-toc-text">Saturation</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Modified-Saturation"><span class="post-toc-text">Modified Saturation</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Comparison"><span class="post-toc-text">Comparison</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Shadow-Free-Feature"><span class="post-toc-text">Shadow-Free Feature</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#LCS-Space"><span class="post-toc-text">LCS Space</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#RGB-Space"><span class="post-toc-text">RGB Space</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Comparison-1"><span class="post-toc-text">Comparison</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Why-it-works"><span class="post-toc-text">Why it works</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Before-light-hits-camera"><span class="post-toc-text">Before light hits camera</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#After-light-hits-camera"><span class="post-toc-text">After light hits camera</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -196,27 +201,27 @@ ga('send', 'pageview');
 <p>We won the 1st Prize, 1st Place at 4th Dean Fund Graduate Creative Innovation Contest. (<a href="https://youtu.be/XEctA4c25q0" target="_blank" rel="external">presentation</a> and  <a href="http://www.utsz.edu.cn/article/view/17414.html?pageId=25" target="_blank" rel="external">news</a>)</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XEctA4c25q0" frameborder="0" gesture="media" allowfullscreen></iframe>
 
-<h2 id="Technical-Details"><a href="#Technical-Details" class="headerlink" title="Technical Details"></a>Technical Details</h2><p>Let me introduce some technical details about road detection in severe shadow cases. </p>
+<h1 id="Technical-Details"><a href="#Technical-Details" class="headerlink" title="Technical Details"></a>Technical Details</h1><p>Let me introduce some technical details about road detection in severe shadow cases. </p>
 <p><strong>Task Definition.</strong> First we should define what does road detection do, here’s an example of road detection:</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://user-images.githubusercontent.com/6234266/34967561-bfd61b4e-fa9e-11e7-9f07-a3f7df65ffbb.png" alt="road_detection" title="">
+                    <img src="https://user-images.githubusercontent.com/6234266/34967561-bfd61b4e-fa9e-11e7-9f07-a3f7df65ffbb.png" alt="Road detection task" title="">
                 </div>
-                <div class="image-caption">road_detection</div>
+                <div class="image-caption">Road detection task</div>
             </figure>
 <p>Given an image, we provide an pixel-wise annotation to show whether it belongs to road area or not. It’s worthwhile to mention some similar tasks like free space segmentation and semantic segmentation. Instead of finding road area, the goal of free space is to find areas that is drivable, say, ground area for a car, water area for a boat and so on. Most free space segmentation algorithms use radar data instead of image captured by a camera because these algorithms are focusing on collision avoidance and it’s the distance information that matters, which can be easily extracted from radar data. As for semantic segmentation, <a href="https://stackoverflow.com/questions/33947823/what-is-semantic-segmentation-compared-to-segmentation-and-scene-labeling" target="_blank" rel="external">it attempts to partition the image into semantically meaningful parts, and to classify each part into one of the pre-determined classes</a>. It involves the scene understanding, I mean, we need the context information and previous experience to find out the semantically meaningful parts. Therefore, it’s more complicated than road detection, which only deals with one specific class. </p>
 <p><strong>Problem Definition.</strong> One problem of road detection is, the illumination change. Although shadow on the road might provide information about object shape and location, it also introduce severe illumination changes, which might cause false alarms in Edge Detection, Texture Extraction and Color Segmentation. </p>
-<p><img src="https://user-images.githubusercontent.com/6234266/34967598-01201528-fa9f-11e7-9aae-218ea00946d4.png" alt="segmentation"></p>
-<h4 id="Illumination-Robust-Feature"><a href="#Illumination-Robust-Feature" class="headerlink" title="Illumination Robust Feature"></a>Illumination Robust Feature</h4><p>In this section, let me introduce the illumination robust feature extractor we proposed in ISM 2015. </p>
-<blockquote>
+<p><img src="/images/OpenVehicleVision/segmentation.jpg" alt="Color image segmentation"></p>
+<h2 id="Illumination-Robust-Feature"><a href="#Illumination-Robust-Feature" class="headerlink" title="Illumination Robust Feature"></a>Illumination Robust Feature</h2><p>In this subsection, let me introduce the illumination robust feature extractor we proposed in ISM 2015. </p>
+<h3 id="Saturation"><a href="#Saturation" class="headerlink" title="Saturation"></a>Saturation</h3><blockquote>
 <p>In RGB space, the brightness and color information are mixed together for three components, thus they are vulnerable to the impact of shadow. To solve this problem, color space conversion is often employed  [11, 18, 20] to extract the brightness information into a separate component, such as I of HSI, L of Lab and Y of YUV. The remaining two components are suitable for road detection since they only contain color information which is relatively illumination-insensitive. Take HSI as an example, H component can be employed to extract road features [20], and S component is suitable to extract roadside vegetation [26]. </p>
 </blockquote>
 <p>As shown below, the S component is insensitive to the illumination changes:</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://user-images.githubusercontent.com/6234266/34969032-b925ca5c-faa7-11e7-8c29-6b194da1ad03.png" alt="Left: RGB image of road with weak shadows. Right: S component grayscale image." title="">
+                    <img src="/images/OpenVehicleVision/saturation_weak.jpg" alt="Left: RGB image of road with weak shadows. Right: S component grayscale image." title="">
                 </div>
                 <div class="image-caption">Left: RGB image of road with weak shadows. Right: S component grayscale image.</div>
             </figure>
@@ -225,28 +230,84 @@ ga('send', 'pageview');
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://user-images.githubusercontent.com/6234266/34969199-94487710-faa8-11e7-8ed2-c04e8a09f4ae.png" alt="Left: RGB image of road with severe shadows. Right: S component grayscale image." title="">
+                    <img src="/images/OpenVehicleVision/saturation_strong.jpg" alt="Left: RGB image of road with severe shadows. Right: S component grayscale image." title="">
                 </div>
                 <div class="image-caption">Left: RGB image of road with severe shadows. Right: S component grayscale image.</div>
             </figure>
-<p> To accommodate both the severe shadow cases and weak shadow cases, we proposed an illumination-robust feature called S’, which is defined as<br>$$<br>S^\prime = \frac{\max(R,G,B) − B}{max(R,G,B)}<br>$$<br>Such a slight modification, but it works! Since the road areas in server shadows have higher blue values, $\max(R,G,B) − B \approx 0$ ; while the road areas in weak shadows have small blue, that is, $\max(R,G,B) − B \approx \max(R,G,B) − min(R,G,B)$. In conclusion, the modification only works in server shadow cases, and fixes the high S to be low S.</p>
-<figure class="image-bubble">
+<h3 id="Modified-Saturation"><a href="#Modified-Saturation" class="headerlink" title="Modified Saturation"></a>Modified Saturation</h3><p>To accommodate both the severe shadow cases and weak shadow cases, we proposed an illumination-robust feature called S’, which is defined as<br>$$<br>S^\prime = \frac{\max(R,G,B) − B}{max(R,G,B)}<br>$$<br>Such a slight modification, but it works! Since the road areas in server shadows have higher blue values, $\max(R,G,B) − B \approx 0$ ; while the road areas in weak shadows have small blue, that is, $\max(R,G,B) − B \approx \max(R,G,B) − min(R,G,B)$. In conclusion, the modification only works in server shadow cases, and fixes the high S to be low S.</p>
+<h3 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a>Comparison</h3><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://user-images.githubusercontent.com/6234266/34969615-99daeca6-faaa-11e7-9d14-a5ae8f9579d7.png" alt="S and S’ in weak shadow cases." title="">
+                    <img src="/images/OpenVehicleVision/s_s2_weak.jpg" alt="S and S’ in weak shadow cases." title="">
                 </div>
                 <div class="image-caption">S and S’ in weak shadow cases.</div>
             </figure>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://user-images.githubusercontent.com/6234266/34969623-a079b326-faaa-11e7-9e08-d535e270e066.png" alt="S and S’ in severe shadow cases." title="">
+                    <img src="/images/OpenVehicleVision/s_s2_strong.jpg" alt="S and S’ in severe shadow cases." title="">
                 </div>
                 <div class="image-caption">S and S’ in severe shadow cases.</div>
             </figure>
 <p>The feature extractor plays an important role in the road detection algorithm. Please read the <a href="https://baidut.github.io/2016/10/01/mm2016/">paper</a> for the whole algorithm implementation.</p>
-<h4 id="Illumination-Invariant-Feature"><a href="#Illumination-Invariant-Feature" class="headerlink" title="Illumination Invariant Feature"></a>Illumination Invariant Feature</h4><p>In this section, I will introduce the illumination invariant feature extractor we proposed in MM 2016. </p>
-<p>(to be continue… coming soon)</p>
+<h2 id="Shadow-Free-Feature"><a href="#Shadow-Free-Feature" class="headerlink" title="Shadow-Free Feature"></a>Shadow-Free Feature</h2><p>In this subsection, I will introduce the shadow-free  (or illumination invariant) feature extractor we proposed in MM 2016. </p>
+<h3 id="LCS-Space"><a href="#LCS-Space" class="headerlink" title="LCS Space"></a>LCS Space</h3><blockquote>
+<p>Since shadows still exist in the extracted component via illumination-robust extractors, the road boundary may not be recovered well in some cases [27]. To completely remove the shadow interferences, some researchers try to find underlying features which are invariant to illumination effects. Log-chromaticity space (LCS) [7] is often employed to recover a shadow-free image. </p>
+</blockquote>
+<p>Before the introduction of our extractor, let me give a brief description of the existing extractors. </p>
+<blockquote>
+<p>Under the condition that an image is captured by a narrow-band camera with approximately Planckian illumination and Lambertian surfaces, Finlayson et al.[7] show that the set of color surfaces of different chromaticities forms parallel straight lines in the LCS. </p>
+</blockquote>
+<p>The band-ratio chromaticity is defined as<br>$$<br>\chi_j := \frac{\rho_q}{\rho_p}, \quad q\in { 1,2,3}, q \neq p, \quad j = 1,2,<br>$$<br>where ρ1 , ρ2 and ρ3 are matrices respectively representing the red(R), green(G) and blue(B) components of the raw image, p is the index of the normalizing components and index<br>q points to the remaining two components. The shadow-free image I proposed in [7] is derived from the aforementioned linear relationship as<br>$$<br>\mathcal{I} := \exp(\cos\theta \ln \chi_1 + \sin \theta \ln \chi_2),<br>$$<br>where θ is a camera-dependent parameter.</p>
+<p>Alvarez and Lopez [2] presents a sped up version where G is used for normalization (p = 2;q = 1,3) and the outermost exponential operation is removed to improve the speed.<br>$$<br>\mathcal{I}_\theta := \cos \theta \ln (\frac{R}{G}) + \sin \theta \ln (\frac{B}{G}),<br>$$</p>
+<p>Maddern et al.[16] proposed another form of illumination invariant imaging and applied it to vision-based localization, mapping and classification for autonomous vehicles. Their<br>extractor is defined as<br>$$<br>\mathcal{I}_\alpha := (1-\alpha) \ln {R} +\alpha\ln B - \ln G + 0.5 ,<br>$$<br>where α is a camera dependent parameter ($\alpha = \frac{\sin \theta} {\cos \theta + \sin \theta}$) and 0.5 is an offset term.</p>
+<blockquote>
+<p>shadow-free feature extractors perform better than illumination-robust extractors in weak shadow cases since the shadows are completely removed. However, their performance in severe shadow cases still needs to be improved. To find why existing shadow-free extractors [2,16] fail in severe shadow cases, we choose a shadowy road image from ROMA dataset [21] and then map pixels of road and vegetation regions into LCS. According to their basic assumption, the set of color surfaces of different chromaticities will form parallel straight lines in LCS. However, the distribution is more like a quadratic function in severe shadow conditions, and the two classes are mixed together indistinguishably.</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/OpenVehicleVision/view_log.jpg" alt="Road and vegetation pixels on log(R/G)-log(B/G) plane" title="">
+                </div>
+                <div class="image-caption">Road and vegetation pixels on log(R/G)-log(B/G) plane</div>
+            </figure>
+<h3 id="RGB-Space"><a href="#RGB-Space" class="headerlink" title="RGB Space"></a>RGB Space</h3><p>Instead of using LCS, we found that the linear relationship in RGB space is more reliable. As shown below, the road and vegetable pixels are distinguishable in RGB space.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/OpenVehicleVision/view_2d.jpg" alt="Road and vegetation pixels on G-B plane" title="">
+                </div>
+                <div class="image-caption">Road and vegetation pixels on G-B plane</div>
+            </figure>
+<p>So our feature extractor is defined as<br>$$<br>\mathcal I_b := 2 - \frac{G-b}{B}<br>$$<br>where b is a scene dependent parameter (we used to think it is a camera dependent parameter, but it actually not, I’ll detail it later).</p>
+<blockquote>
+<p>We test three edge detectors (Sobel, Canny and Structured Edge) in severe shadow cases. As shown in Fig.7, using the shadow-free image obtained by our extractor can achieve a better result.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/OpenVehicleVision/1516101527065.png" alt="Fig.7 Improve edge detection via our extractor." title="">
+                </div>
+                <div class="image-caption">Fig.7 Improve edge detection via our extractor.</div>
+            </figure>
+</blockquote>
+<h3 id="Comparison-1"><a href="#Comparison-1" class="headerlink" title="Comparison"></a>Comparison</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/OpenVehicleVision/comparison.jpg" alt="Comparison of various feature extractors." title="">
+                </div>
+                <div class="image-caption">Comparison of various feature extractors.</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/images/OpenVehicleVision/more-comp.jpg" alt="Shadowy images and the results of extractors" title="">
+                </div>
+                <div class="image-caption">Shadowy images and the results of extractors</div>
+            </figure>
+<p>We also built an online demonstration <a href="https://baidut.github.io/Shaffer/">here</a> (implemented in Javascript).</p>
+<h1 id="Why-it-works"><a href="#Why-it-works" class="headerlink" title="Why it works"></a>Why it works</h1><p>In this section, I’ll provide the physical explanation of the proposed methods. </p>
+<h2 id="Before-light-hits-camera"><a href="#Before-light-hits-camera" class="headerlink" title="Before light hits camera"></a>Before light hits camera</h2><p>coming soon</p>
+<h2 id="After-light-hits-camera"><a href="#After-light-hits-camera" class="headerlink" title="After light hits camera"></a>After light hits camera</h2><p>coming soon</p>
 
         </div>
 
@@ -254,7 +315,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-01-16T03:16:53.899Z" itemprop="dateUpdated">2018-01-16 11:16:53</time>
+    Last updated: <time datetime="2018-01-16T11:42:29.836Z" itemprop="dateUpdated">2018-01-16 19:42:29</time>
 </span><br>
 
 
@@ -329,18 +390,18 @@ ga('send', 'pageview');
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2016/08/30/OptiFaith/" id="post-prev" class="post-nav-link">
+      <a href="/2016/10/01/mm2016/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Opti-faith</h4>
+        <h4 class="title">A Novel Shadow-Free Feature Extractor for Real-Time Road Detection</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2016/03/20/icassp2016bird/" id="post-next" class="post-nav-link">
+      <a href="/2016/08/30/OptiFaith/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Robust Lane Marking Detection using Boundary-Based Inverse Perspective Mapping</h4>
+        <h4 class="title">Opti-faith</h4>
       </a>
     </div>
   
