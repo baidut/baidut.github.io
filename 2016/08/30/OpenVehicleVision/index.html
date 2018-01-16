@@ -37,10 +37,17 @@ ga('send', 'pageview');
 <meta property="og:url" content="https://baidut.github.io/2016/08/30/OpenVehicleVision/index.html">
 <meta property="og:site_name" content="BitBlog">
 <meta property="og:description" content="I’ve been working on Autonomous Driving vision algorithms for one year, and here’s one demo of my project:   Some related publications:  A Novel Shadow-Free Feature Extractor for Real-Time Road Detect">
-<meta property="og:updated_time" content="2017-11-28T06:13:52.640Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34967561-bfd61b4e-fa9e-11e7-9f07-a3f7df65ffbb.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34967598-01201528-fa9f-11e7-9aae-218ea00946d4.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969032-b925ca5c-faa7-11e7-8c29-6b194da1ad03.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969199-94487710-faa8-11e7-8ed2-c04e8a09f4ae.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969615-99daeca6-faaa-11e7-9d14-a5ae8f9579d7.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/6234266/34969623-a079b326-faaa-11e7-9e08-d535e270e066.png">
+<meta property="og:updated_time" content="2018-01-16T03:16:53.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenVehicleVision">
 <meta name="twitter:description" content="I’ve been working on Autonomous Driving vision algorithms for one year, and here’s one demo of my project:   Some related publications:  A Novel Shadow-Free Feature Extractor for Real-Time Road Detect">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/6234266/34967561-bfd61b4e-fa9e-11e7-9f07-a3f7df65ffbb.png">
     
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
@@ -149,6 +156,13 @@ ga('send', 'pageview');
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Technical-Details"><span class="post-toc-text">Technical Details</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Illumination-Robust-Feature"><span class="post-toc-text">Illumination Robust Feature</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Illumination-Invariant-Feature"><span class="post-toc-text">Illumination Invariant Feature</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
 <article id="post-OpenVehicleVision"
   class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -179,12 +193,60 @@ ga('send', 'pageview');
 <li><a href="https://baidut.github.io/2016/03/20/icassp2016bird/">Robust Lane Marking Detection using Boundary-Based Inverse Perspective Mapping</a></li>
 <li><a href="https://baidut.github.io/2015/12/14/ism2015/">An Illumination-Robust Approach for Feature-Based Road Detection</a></li>
 </ul>
-<p>We won the first prize at , Here’s the presentation (language: Chinese) </p>
-<p>院长基金第一名，通过专家评委，可以在个人主页上查看视频 <a href="https://youtu.be/XEctA4c25q0" target="_blank" rel="external">https://youtu.be/XEctA4c25q0</a></p>
+<p>We won the 1st Prize, 1st Place at 4th Dean Fund Graduate Creative Innovation Contest. (<a href="https://youtu.be/XEctA4c25q0" target="_blank" rel="external">presentation</a> and  <a href="http://www.utsz.edu.cn/article/view/17414.html?pageId=25" target="_blank" rel="external">news</a>)</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XEctA4c25q0" frameborder="0" gesture="media" allowfullscreen></iframe>
 
-
-
+<h2 id="Technical-Details"><a href="#Technical-Details" class="headerlink" title="Technical Details"></a>Technical Details</h2><p>Let me introduce some technical details about road detection in severe shadow cases. </p>
+<p><strong>Task Definition.</strong> First we should define what does road detection do, here’s an example of road detection:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://user-images.githubusercontent.com/6234266/34967561-bfd61b4e-fa9e-11e7-9f07-a3f7df65ffbb.png" alt="road_detection" title="">
+                </div>
+                <div class="image-caption">road_detection</div>
+            </figure>
+<p>Given an image, we provide an pixel-wise annotation to show whether it belongs to road area or not. It’s worthwhile to mention some similar tasks like free space segmentation and semantic segmentation. Instead of finding road area, the goal of free space is to find areas that is drivable, say, ground area for a car, water area for a boat and so on. Most free space segmentation algorithms use radar data instead of image captured by a camera because these algorithms are focusing on collision avoidance and it’s the distance information that matters, which can be easily extracted from radar data. As for semantic segmentation, <a href="https://stackoverflow.com/questions/33947823/what-is-semantic-segmentation-compared-to-segmentation-and-scene-labeling" target="_blank" rel="external">it attempts to partition the image into semantically meaningful parts, and to classify each part into one of the pre-determined classes</a>. It involves the scene understanding, I mean, we need the context information and previous experience to find out the semantically meaningful parts. Therefore, it’s more complicated than road detection, which only deals with one specific class. </p>
+<p><strong>Problem Definition.</strong> One problem of road detection is, the illumination change. Although shadow on the road might provide information about object shape and location, it also introduce severe illumination changes, which might cause false alarms in Edge Detection, Texture Extraction and Color Segmentation. </p>
+<p><img src="https://user-images.githubusercontent.com/6234266/34967598-01201528-fa9f-11e7-9aae-218ea00946d4.png" alt="segmentation"></p>
+<h4 id="Illumination-Robust-Feature"><a href="#Illumination-Robust-Feature" class="headerlink" title="Illumination Robust Feature"></a>Illumination Robust Feature</h4><p>In this section, let me introduce the illumination robust feature extractor we proposed in ISM 2015. </p>
+<blockquote>
+<p>In RGB space, the brightness and color information are mixed together for three components, thus they are vulnerable to the impact of shadow. To solve this problem, color space conversion is often employed  [11, 18, 20] to extract the brightness information into a separate component, such as I of HSI, L of Lab and Y of YUV. The remaining two components are suitable for road detection since they only contain color information which is relatively illumination-insensitive. Take HSI as an example, H component can be employed to extract road features [20], and S component is suitable to extract roadside vegetation [26]. </p>
+</blockquote>
+<p>As shown below, the S component is insensitive to the illumination changes:</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://user-images.githubusercontent.com/6234266/34969032-b925ca5c-faa7-11e7-8c29-6b194da1ad03.png" alt="Left: RGB image of road with weak shadows. Right: S component grayscale image." title="">
+                </div>
+                <div class="image-caption">Left: RGB image of road with weak shadows. Right: S component grayscale image.</div>
+            </figure>
+<p>The definition of S (saturation) is as follows:<br>$$<br>S = \frac{\max(R,G,B) − \min(R,G,B)}{max(R,G,B)}<br>$$<br>where S denotes the saturation of HSV color space and R, G and B denote the red, green and blue channels of the RGB color space respectively. Note that the saturation is defined<br>to be zero when all channels of RGB are zero. Since the road surfaces are less colorful than the roadside vegetation, it has much lower S regardless of the illumination changes.</p>
+<p>However, color components are unstable in severe shadow cases. We found the reason is that the road areas in server shadow show a little bit blue, which results in high S. (Why blue? ——I’ll explain it later)</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://user-images.githubusercontent.com/6234266/34969199-94487710-faa8-11e7-8ed2-c04e8a09f4ae.png" alt="Left: RGB image of road with severe shadows. Right: S component grayscale image." title="">
+                </div>
+                <div class="image-caption">Left: RGB image of road with severe shadows. Right: S component grayscale image.</div>
+            </figure>
+<p> To accommodate both the severe shadow cases and weak shadow cases, we proposed an illumination-robust feature called S’, which is defined as<br>$$<br>S^\prime = \frac{\max(R,G,B) − B}{max(R,G,B)}<br>$$<br>Such a slight modification, but it works! Since the road areas in server shadows have higher blue values, $\max(R,G,B) − B \approx 0$ ; while the road areas in weak shadows have small blue, that is, $\max(R,G,B) − B \approx \max(R,G,B) − min(R,G,B)$. In conclusion, the modification only works in server shadow cases, and fixes the high S to be low S.</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://user-images.githubusercontent.com/6234266/34969615-99daeca6-faaa-11e7-9d14-a5ae8f9579d7.png" alt="S and S’ in weak shadow cases." title="">
+                </div>
+                <div class="image-caption">S and S’ in weak shadow cases.</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://user-images.githubusercontent.com/6234266/34969623-a079b326-faaa-11e7-9e08-d535e270e066.png" alt="S and S’ in severe shadow cases." title="">
+                </div>
+                <div class="image-caption">S and S’ in severe shadow cases.</div>
+            </figure>
+<p>The feature extractor plays an important role in the road detection algorithm. Please read the <a href="https://baidut.github.io/2016/10/01/mm2016/">paper</a> for the whole algorithm implementation.</p>
+<h4 id="Illumination-Invariant-Feature"><a href="#Illumination-Invariant-Feature" class="headerlink" title="Illumination Invariant Feature"></a>Illumination Invariant Feature</h4><p>In this section, I will introduce the illumination invariant feature extractor we proposed in MM 2016. </p>
+<p>(to be continue… coming soon)</p>
 
         </div>
 
@@ -192,7 +254,7 @@ ga('send', 'pageview');
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2017-11-28T06:13:52.640Z" itemprop="dateUpdated">2017-11-28 14:13:52</time>
+    Last updated: <time datetime="2018-01-16T03:16:53.899Z" itemprop="dateUpdated">2018-01-16 11:16:53</time>
 </span><br>
 
 
